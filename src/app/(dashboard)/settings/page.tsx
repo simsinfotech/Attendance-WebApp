@@ -9,8 +9,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-import { Loader2, Shield, User, Eye, EyeOff, Clock, Camera, Trash2, Upload, X, ImagePlus, Mail, Briefcase, Building2 } from "lucide-react"
+import { Loader2, Shield, User, Eye, EyeOff, Clock, Camera, Trash2, Upload, X, ImagePlus, Mail, Briefcase, Building2, CalendarDays } from "lucide-react"
 import { toast } from "sonner"
+import { format } from "date-fns"
 import { OFFICE_TIMINGS } from "@/lib/config"
 
 export default function SettingsPage() {
@@ -149,8 +150,14 @@ export default function SettingsPage() {
       {/* Profile Hero Card */}
       <GlassCard className="overflow-hidden p-0">
         {/* Banner gradient */}
-        <div className={`h-28 sm:h-36 bg-gradient-to-br ${employee?.is_admin ? "from-indigo-500 via-blue-500 to-indigo-600" : "from-emerald-500 via-green-500 to-emerald-600"} relative`}>
+        <div className={`h-28 sm:h-36 bg-gradient-to-br ${employee?.is_admin ? "from-indigo-500 via-blue-500 to-indigo-600" : "from-emerald-500 via-green-500 to-emerald-600"} relative overflow-hidden`}>
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
+          {/* Decorative circles */}
+          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10" />
+          <div className="absolute -bottom-8 -right-4 w-28 h-28 rounded-full bg-white/5" />
+          <div className="absolute top-4 right-6 hidden sm:block">
+            <img src="/sims-logo.png" alt="" className="h-10 w-auto opacity-20" />
+          </div>
         </div>
 
         {/* Avatar & info section */}
@@ -200,6 +207,12 @@ export default function SettingsPage() {
                 </span>
               </div>
               <p className="text-base text-muted-foreground mt-1">{employee?.designation}{employee?.department ? ` \u00B7 ${employee.department}` : ""}</p>
+              {employee?.date_of_joining && (
+                <p className="text-sm text-muted-foreground/70 mt-1 flex items-center gap-1.5">
+                  <CalendarDays className="h-3.5 w-3.5" />
+                  Joined {format(new Date(employee.date_of_joining), "MMMM yyyy")}
+                </p>
+              )}
             </div>
           </div>
 
