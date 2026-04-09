@@ -149,56 +149,59 @@ export default function SettingsPage() {
       {/* Profile Hero Card */}
       <GlassCard className="overflow-hidden p-0">
         {/* Banner gradient */}
-        <div className={`h-28 bg-gradient-to-r ${employee?.is_admin ? "from-indigo-500 via-blue-500 to-indigo-600" : "from-emerald-500 via-green-500 to-emerald-600"} relative`}>
+        <div className={`h-32 bg-gradient-to-r ${employee?.is_admin ? "from-indigo-500 via-blue-500 to-indigo-600" : "from-emerald-500 via-green-500 to-emerald-600"} relative`}>
           <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
         </div>
 
         {/* Avatar & info section */}
         <div className="px-6 pb-6">
           {/* Avatar overlapping banner */}
-          <div className="-mt-14 flex items-end gap-5 mb-5">
-            <div className="relative group shrink-0">
-              <div className={`rounded-full p-1 bg-white shadow-xl ${employee?.is_admin ? "ring-4 ring-indigo-100" : "ring-4 ring-emerald-100"}`}>
-                <button
-                  type="button"
-                  onClick={() => fileInputRef.current?.click()}
-                  className="relative h-24 w-24 rounded-full overflow-hidden focus:outline-none cursor-pointer"
-                >
-                  {preview ? (
-                    <img src={preview} alt="Preview" className="h-full w-full object-cover" />
-                  ) : employee?.avatar_url ? (
-                    <img src={employee.avatar_url} alt={employee.full_name} className="h-full w-full object-cover" />
-                  ) : (
-                    <div className={`h-full w-full flex items-center justify-center text-2xl font-bold text-white ${employee?.is_admin ? "bg-gradient-to-br from-indigo-500 to-blue-600" : "bg-gradient-to-br from-emerald-500 to-green-600"}`}>
-                      {initials}
+          <div className="-mt-14 mb-4">
+            <div className="flex items-end gap-5">
+              <div className="relative group shrink-0">
+                <div className={`rounded-full p-1 bg-white shadow-xl ${employee?.is_admin ? "ring-4 ring-indigo-100" : "ring-4 ring-emerald-100"}`}>
+                  <button
+                    type="button"
+                    onClick={() => fileInputRef.current?.click()}
+                    className="relative h-24 w-24 rounded-full overflow-hidden focus:outline-none cursor-pointer"
+                  >
+                    {preview ? (
+                      <img src={preview} alt="Preview" className="h-full w-full object-cover" />
+                    ) : employee?.avatar_url ? (
+                      <img src={employee.avatar_url} alt={employee.full_name} className="h-full w-full object-cover" />
+                    ) : (
+                      <div className={`h-full w-full flex items-center justify-center text-2xl font-bold text-white ${employee?.is_admin ? "bg-gradient-to-br from-indigo-500 to-blue-600" : "bg-gradient-to-br from-emerald-500 to-green-600"}`}>
+                        {initials}
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 flex items-center justify-center transition-all duration-200">
+                      <div className="opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center gap-0.5">
+                        <Camera className="h-5 w-5 text-white" />
+                        <span className="text-[10px] text-white font-medium">Change</span>
+                      </div>
                     </div>
-                  )}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 flex items-center justify-center transition-all duration-200">
-                    <div className="opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center gap-0.5">
-                      <Camera className="h-5 w-5 text-white" />
-                      <span className="text-[10px] text-white font-medium">Change</span>
-                    </div>
-                  </div>
-                </button>
+                  </button>
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  onChange={handleFileSelect}
+                  className="hidden"
+                />
               </div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept="image/jpeg,image/png,image/webp"
-                onChange={handleFileSelect}
-                className="hidden"
-              />
             </div>
 
-            <div className="flex-1 min-w-0 pb-1">
-              <h2 className="text-xl font-bold tracking-tight truncate">{employee?.full_name}</h2>
-              <p className="text-sm text-muted-foreground truncate">{employee?.designation} {employee?.department ? `\u00B7 ${employee.department}` : ""}</p>
-              <div className="flex items-center gap-2 mt-1.5">
+            {/* Name & role below avatar */}
+            <div className="mt-3">
+              <div className="flex items-center gap-3">
+                <h2 className="text-xl font-bold tracking-tight">{employee?.full_name}</h2>
                 <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-semibold ${employee?.is_admin ? "bg-indigo-50 text-indigo-600 ring-1 ring-indigo-200" : "bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200"}`}>
                   <Shield className="h-3 w-3" />
                   {employee?.is_admin ? "Admin" : "Employee"}
                 </span>
               </div>
+              <p className="text-sm text-muted-foreground mt-0.5">{employee?.designation} {employee?.department ? `\u00B7 ${employee.department}` : ""}</p>
             </div>
           </div>
 
