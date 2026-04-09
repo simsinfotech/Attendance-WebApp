@@ -17,9 +17,6 @@ export default function DashboardLayout({
   // We push a guard entry on mount. When back is pressed and the guard
   // is popped, we push it again and redirect to the dashboard.
   useEffect(() => {
-    // Only apply on mobile-sized screens to avoid affecting desktop
-    if (window.innerWidth > 1024) return
-
     const GUARD = "__dashboard_guard__"
 
     // Push guard entry
