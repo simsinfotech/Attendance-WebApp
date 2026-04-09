@@ -13,6 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { cn } from "@/lib/utils"
 import { NotificationBell } from "./notification-bell"
 import { MobileSidebar } from "./mobile-sidebar"
 import { LogOut, Settings, User } from "lucide-react"
@@ -25,7 +26,7 @@ function getGreeting(): string {
 }
 
 export function Topbar() {
-  const { employee } = useUser()
+  const { employee, isAdmin } = useUser()
   const router = useRouter()
   const supabase = createClient()
 
@@ -61,7 +62,12 @@ export function Topbar() {
 
           <DropdownMenu>
             <DropdownMenuTrigger render={<Button variant="ghost" className="relative h-9 w-9 rounded-full p-0" />}>
-              <div className="rounded-full p-[2px] bg-gradient-to-br from-emerald-500 to-green-600">
+              <div className={cn(
+                "rounded-full p-[2px]",
+                isAdmin
+                  ? "bg-gradient-to-br from-indigo-500 to-blue-600"
+                  : "bg-gradient-to-br from-emerald-500 to-green-600"
+              )}>
                 <Avatar className="h-8 w-8 border-2 border-white">
                   <AvatarFallback className="bg-background text-primary text-xs font-semibold">
                     {initials}
@@ -90,7 +96,10 @@ export function Topbar() {
       </div>
 
       {/* Subtle gradient accent line at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+      <div className={cn(
+        "absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent to-transparent",
+        isAdmin ? "via-indigo-500/30" : "via-emerald-500/30"
+      )} />
     </header>
   )
 }

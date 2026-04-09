@@ -120,15 +120,33 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       <div className="flex items-center justify-between h-16 px-4 border-b border-gray-200">
         {!collapsed && (
           <Link href={isAdmin ? "/overview" : "/my-dashboard"} className="flex items-center gap-2 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center shadow-lg shadow-emerald-500/20 group-hover:shadow-emerald-500/40 transition-shadow">
+            <div className={cn(
+              "w-8 h-8 rounded-lg flex items-center justify-center shadow-lg transition-shadow",
+              isAdmin
+                ? "bg-gradient-to-br from-indigo-500 to-blue-600 shadow-indigo-500/20 group-hover:shadow-indigo-500/40"
+                : "bg-gradient-to-br from-emerald-500 to-green-600 shadow-emerald-500/20 group-hover:shadow-emerald-500/40"
+            )}>
               <span className="text-sm font-bold text-white">SW</span>
             </div>
-            <span className="font-semibold text-sm tracking-tight">Sims Workspace</span>
+            <div className="flex flex-col">
+              <span className="font-semibold text-sm tracking-tight leading-tight">Sims Workspace</span>
+              <span className={cn(
+                "text-[9px] font-bold uppercase tracking-wider leading-tight",
+                isAdmin ? "text-indigo-500" : "text-emerald-500"
+              )}>
+                {isAdmin ? "Admin Panel" : "Employee Portal"}
+              </span>
+            </div>
           </Link>
         )}
         {collapsed && (
           <Link href={isAdmin ? "/overview" : "/my-dashboard"} className="mx-auto" title="Sims Workspace">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+            <div className={cn(
+              "w-8 h-8 rounded-lg flex items-center justify-center shadow-lg",
+              isAdmin
+                ? "bg-gradient-to-br from-indigo-500 to-blue-600 shadow-indigo-500/20"
+                : "bg-gradient-to-br from-emerald-500 to-green-600 shadow-emerald-500/20"
+            )}>
               <span className="text-sm font-bold text-white">SW</span>
             </div>
           </Link>
@@ -197,18 +215,23 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
                       className={cn(
                         "relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 group",
                         isActive
-                          ? "bg-emerald-50 text-primary"
+                          ? isAdmin ? "bg-indigo-50 text-indigo-600" : "bg-emerald-50 text-emerald-600"
                           : "text-muted-foreground hover:text-foreground hover:bg-gray-50"
                       )}
                     >
                       {/* Active accent bar */}
                       {isActive && (
-                        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-full bg-primary shadow-[0_0_8px_rgba(16,185,129,0.6)]" />
+                        <div className={cn(
+                          "absolute left-0 top-1/2 -translate-y-1/2 w-[3px] h-5 rounded-full",
+                          isAdmin ? "bg-indigo-500 shadow-[0_0_8px_rgba(99,102,241,0.6)]" : "bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"
+                        )} />
                       )}
                       <item.icon
                         className={cn(
                           "h-4 w-4 shrink-0 transition-colors",
-                          isActive ? "text-primary" : "group-hover:text-foreground"
+                          isActive
+                            ? isAdmin ? "text-indigo-600" : "text-emerald-600"
+                            : "group-hover:text-foreground"
                         )}
                       />
                       {!collapsed && (
@@ -229,7 +252,12 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {!collapsed && employee && (
         <div className="p-3 border-t border-gray-200">
           <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-50 border border-gray-200">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center text-xs font-semibold text-white shrink-0 shadow-lg shadow-emerald-500/20">
+            <div className={cn(
+              "w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white shrink-0 shadow-lg",
+              isAdmin
+                ? "bg-gradient-to-br from-indigo-500 to-blue-600 shadow-indigo-500/20"
+                : "bg-gradient-to-br from-emerald-500 to-green-600 shadow-emerald-500/20"
+            )}>
               {initials}
             </div>
             <div className="min-w-0 flex-1">

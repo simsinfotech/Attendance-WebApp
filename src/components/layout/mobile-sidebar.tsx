@@ -58,10 +58,23 @@ export function MobileSidebar() {
       <SheetContent side="left" className="w-[280px] p-0 glass-strong">
         <SheetTitle className="sr-only">Navigation</SheetTitle>
         <div className="flex items-center h-16 px-4 border-b border-gray-200">
-          <div className="w-8 h-8 rounded-lg bg-primary flex items-center justify-center mr-2">
-            <span className="text-sm font-bold text-primary-foreground">SW</span>
+          <div className={cn(
+            "w-8 h-8 rounded-lg flex items-center justify-center mr-2",
+            isAdmin
+              ? "bg-gradient-to-br from-indigo-500 to-blue-600"
+              : "bg-gradient-to-br from-emerald-500 to-green-600"
+          )}>
+            <span className="text-sm font-bold text-white">SW</span>
           </div>
-          <span className="font-semibold text-sm">Sims Workspace</span>
+          <div className="flex flex-col">
+            <span className="font-semibold text-sm leading-tight">Sims Workspace</span>
+            <span className={cn(
+              "text-[9px] font-bold uppercase tracking-wider leading-tight",
+              isAdmin ? "text-indigo-500" : "text-emerald-500"
+            )}>
+              {isAdmin ? "Admin Panel" : "Employee Portal"}
+            </span>
+          </div>
         </div>
 
         {isAdmin && (
@@ -81,7 +94,7 @@ export function MobileSidebar() {
                 className={cn(
                   "flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors",
                   isActive
-                    ? "bg-primary/15 text-primary"
+                    ? isAdmin ? "bg-indigo-50 text-indigo-600" : "bg-emerald-50 text-emerald-600"
                     : "text-muted-foreground hover:text-foreground hover:bg-gray-50"
                 )}
               >
