@@ -47,7 +47,7 @@ export async function POST(request: Request) {
   }
 
   const ext = file.type.split("/")[1] === "jpeg" ? "jpg" : file.type.split("/")[1]
-  const filePath = `${employee.id}.${ext}`
+  const filePath = `${employee.id}_${Date.now()}.${ext}`
 
   const admin = getSupabaseAdmin()
 
@@ -70,6 +70,7 @@ export async function POST(request: Request) {
     .from("avatars")
     .upload(filePath, buffer, {
       contentType: file.type,
+      cacheControl: "0",
       upsert: true,
     })
 
