@@ -1,0 +1,96 @@
+"use client"
+
+import { useMemo } from "react"
+import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
+import { useUser } from "@/hooks/use-user"
+import { Button } from "@/components/ui/button"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { NotificationBell } from "./notification-bell"
+import { MobileSidebar } from "./mobile-sidebar"
+import { LogOut, Settings, User } from "lucide-react"
+
+function getGreeting(): string {
+  const hour = new Date().getHours()
+  if (hour < 12) return "Good morning"
+  if (hour < 17) return "Good afternoon"
+  return "Good evening"
+}
+
+export function Topbar() {
+  const { employee } = useUser()
+  const router = useRouter()
+  const supabase = createClient()
+
+  const greeting = useMemo(() => getGreeting(), [])
+
+  async function handleSignOut() {
+    await supabase.auth.signOut()
+    window.location.href = "/login"
+  }
+
+  const initials = employee?.full_name
+    ?.split(" ")
+    .map((n) => n[0])
+    .join("")
+    .toUpperCase()
+    .slice(0, 2) ?? "?"
+
+  return (
+    <header className="sticky top-0 z-30 glass border-b border-gray-200 relative">
+      <div className="h-16 flex items-center justify-between px-4 lg:px-6">
+        <div className="flex items-center gap-3">
+          <MobileSidebar />
+          <div className="hidden sm:block animate-fade-in">
+            <h2 className="text-sm font-medium text-muted-foreground">
+              {greeting},{" "}
+              <span className="text-foreground font-semibold">{employee?.full_name ?? "User"}</span>
+            </h2>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <NotificationBell />
+
+          <DropdownMenu>
+            <DropdownMenuTrigger render={<Button variant="ghost" className="relative h-9 w-9 rounded-full p-0" />}>
+              <div className="rounded-full p-[2px] bg-gradient-to-br from-emerald-500 to-green-600">
+                <Avatar className="h-8 w-8 border-2 border-white">
+                  <AvatarFallback className="bg-background text-primary text-xs font-semibold">
+                    {initials}
+                  </AvatarFallback>
+                </Avatar>
+              </div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-48">
+              <div className="px-2 py-1.5">
+                <p className="text-sm font-medium">{employee?.full_name}</p>
+                <p className="text-xs text-muted-foreground">{employee?.designation}</p>
+              </div>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => router.push("/settings")}>
+                <Settings className="mr-2 h-4 w-4" />
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={handleSignOut}>
+                <LogOut className="mr-2 h-4 w-4" />
+                Sign Out
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      </div>
+
+      {/* Subtle gradient accent line at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+    </header>
+  )
+}
