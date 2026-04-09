@@ -7,9 +7,8 @@ import {
   useState,
   type ReactNode,
 } from "react"
-import { createClient } from "@/lib/supabase/client"
 import type { Employee } from "@/types"
-import type { AuthChangeEvent, Session, User } from "@supabase/supabase-js"
+import type { User } from "@supabase/supabase-js"
 
 interface UseUserReturn {
   user: User | null
@@ -29,58 +28,31 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [employee, setEmployee] = useState<Employee | null>(null)
   const [isLoading, setIsLoading] = useState(true)
-  const supabase = createClient()
 
   useEffect(() => {
     let cancelled = false
 
-    async function fetchEmployee(authId: string) {
-      const { data: emp, error } = await supabase
-        .from("fs_employees")
-        .select("*")
-        .eq("auth_id", authId)
-        .maybeSingle()
-      if (error) {
-        console.error("Failed to fetch employee:", error.message)
-      }
-      if (!cancelled) {
-        setEmployee(emp)
-      }
-    }
-
     async function init() {
-      const {
-        data: { user: authUser },
-      } = await supabase.auth.getUser()
+      try {
+        const res = await fetch("/api/auth/me")
+        const data = await res.json()
 
-      if (!cancelled) {
-        setUser(authUser)
-        if (authUser) {
-          await fetchEmployee(authUser.id)
+        if (!cancelled) {
+          setUser(data.user)
+          setEmployee(data.employee)
+          setIsLoading(false)
         }
-        setIsLoading(false)
+      } catch {
+        if (!cancelled) {
+          setIsLoading(false)
+        }
       }
     }
 
     init()
 
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event: AuthChangeEvent, session: Session | null) => {
-      if (cancelled) return
-      const sessionUser = session?.user ?? null
-      setUser(sessionUser)
-      if (sessionUser) {
-        await fetchEmployee(sessionUser.id)
-      } else {
-        setEmployee(null)
-      }
-      setIsLoading(false)
-    })
-
     return () => {
       cancelled = true
-      subscription.unsubscribe()
     }
   }, [])
 
