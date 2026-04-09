@@ -1,7 +1,6 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -18,7 +17,6 @@ export default function LoginPage() {
   const [resetEmail, setResetEmail] = useState("")
   const [resetSent, setResetSent] = useState(false)
   const [resetLoading, setResetLoading] = useState(false)
-  const router = useRouter()
   const supabase = createClient()
 
   async function handleResetPassword(e: React.FormEvent) {
@@ -44,27 +42,25 @@ export default function LoginPage() {
     setError("")
     setLoading(true)
 
-    const { error: authError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    })
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      })
 
-    if (authError) {
-      setError(authError.message)
+      const data = await res.json()
+
+      if (!res.ok) {
+        setError(data.error || "Login failed")
+        setLoading(false)
+        return
+      }
+
+      window.location.href = data.redirect || "/my-dashboard"
+    } catch {
+      setError("Something went wrong. Please try again.")
       setLoading(false)
-      return
-    }
-
-    const { data: { user } } = await supabase.auth.getUser()
-    if (user) {
-      const { data: employee } = await supabase
-        .from("fs_employees")
-        .select("is_admin")
-        .eq("auth_id", user.id)
-        .single()
-
-      router.push(employee?.is_admin ? "/overview" : "/my-dashboard")
-      router.refresh()
     }
   }
 
