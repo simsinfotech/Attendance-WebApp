@@ -121,12 +121,12 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         {!collapsed && (
           <Link href={isAdmin ? "/overview" : "/my-dashboard"} className="flex items-center gap-2 group">
             <div className={cn(
-              "w-8 h-8 rounded-lg flex items-center justify-center shadow-lg transition-shadow",
+              "w-9 h-9 rounded-lg flex items-center justify-center shadow-lg transition-shadow overflow-hidden",
               isAdmin
                 ? "bg-gradient-to-br from-indigo-500 to-blue-600 shadow-indigo-500/20 group-hover:shadow-indigo-500/40"
                 : "bg-gradient-to-br from-emerald-500 to-green-600 shadow-emerald-500/20 group-hover:shadow-emerald-500/40"
             )}>
-              <span className="text-sm font-bold text-white">SW</span>
+              <img src="/sims-logo.png" alt="SW" className="h-7 w-auto object-contain" />
             </div>
             <div className="flex flex-col">
               <span className="font-semibold text-sm tracking-tight leading-tight">Sims Workspace</span>
@@ -142,12 +142,12 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
         {collapsed && (
           <Link href={isAdmin ? "/overview" : "/my-dashboard"} className="mx-auto" title="Sims Workspace">
             <div className={cn(
-              "w-8 h-8 rounded-lg flex items-center justify-center shadow-lg",
+              "w-9 h-9 rounded-lg flex items-center justify-center shadow-lg overflow-hidden",
               isAdmin
                 ? "bg-gradient-to-br from-indigo-500 to-blue-600 shadow-indigo-500/20"
                 : "bg-gradient-to-br from-emerald-500 to-green-600 shadow-emerald-500/20"
             )}>
-              <span className="text-sm font-bold text-white">SW</span>
+              <img src="/sims-logo.png" alt="SW" className="h-7 w-auto object-contain" />
             </div>
           </Link>
         )}

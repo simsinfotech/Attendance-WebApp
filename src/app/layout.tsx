@@ -17,6 +17,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Sims Workspace",
   description: "HR & Attendance Management by Sims Workspace",
+  icons: {
+    icon: "/sims-logo.png",
+    apple: "/sims-logo.png",
+  },
 };
 
 export default function RootLayout({

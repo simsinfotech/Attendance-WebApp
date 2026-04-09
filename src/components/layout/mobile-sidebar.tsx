@@ -59,12 +59,12 @@ export function MobileSidebar() {
         <SheetTitle className="sr-only">Navigation</SheetTitle>
         <div className="flex items-center h-16 px-4 border-b border-gray-200">
           <div className={cn(
-            "w-8 h-8 rounded-lg flex items-center justify-center mr-2",
+            "w-9 h-9 rounded-lg flex items-center justify-center mr-2 overflow-hidden",
             isAdmin
               ? "bg-gradient-to-br from-indigo-500 to-blue-600"
               : "bg-gradient-to-br from-emerald-500 to-green-600"
           )}>
-            <span className="text-sm font-bold text-white">SW</span>
+            <img src="/sims-logo.png" alt="SW" className="h-7 w-auto object-contain" />
           </div>
           <div className="flex flex-col">
             <span className="font-semibold text-sm leading-tight">Sims Workspace</span>

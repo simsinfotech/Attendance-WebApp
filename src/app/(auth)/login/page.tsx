@@ -85,11 +85,13 @@ export default function LoginPage() {
       <div className="relative w-full max-w-md animate-scale-in">
         {/* Logo & Title */}
         <div className="text-center mb-8">
-          <img
-            src="/sims-logo.png"
-            alt="Sims Workspace"
-            className="mx-auto h-20 w-auto mb-5"
-          />
+          <div className="mx-auto w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center shadow-xl shadow-emerald-500/25 mb-5 overflow-hidden">
+            <img
+              src="/sims-logo.png"
+              alt="Sims Workspace"
+              className="h-12 w-auto object-contain"
+            />
+          </div>
           <h1 className="text-3xl font-bold tracking-tight">
             Sims <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-green-600">Workspace</span>
           </h1>
