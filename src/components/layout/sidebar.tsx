@@ -252,14 +252,22 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
       {!collapsed && employee && (
         <div className="p-3 border-t border-gray-200">
           <div className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-gray-50 border border-gray-200">
-            <div className={cn(
-              "w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white shrink-0 shadow-lg",
-              isAdmin
-                ? "bg-gradient-to-br from-indigo-500 to-blue-600 shadow-indigo-500/20"
-                : "bg-gradient-to-br from-emerald-500 to-green-600 shadow-emerald-500/20"
-            )}>
-              {initials}
-            </div>
+            {employee.avatar_url ? (
+              <img
+                src={employee.avatar_url}
+                alt={employee.full_name}
+                className="w-8 h-8 rounded-full object-cover shrink-0 shadow-lg"
+              />
+            ) : (
+              <div className={cn(
+                "w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold text-white shrink-0 shadow-lg",
+                isAdmin
+                  ? "bg-gradient-to-br from-indigo-500 to-blue-600 shadow-indigo-500/20"
+                  : "bg-gradient-to-br from-emerald-500 to-green-600 shadow-emerald-500/20"
+              )}>
+                {initials}
+              </div>
+            )}
             <div className="min-w-0 flex-1">
               <p className="text-xs font-medium text-foreground truncate">
                 {employee.full_name}

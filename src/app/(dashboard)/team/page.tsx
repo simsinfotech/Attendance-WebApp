@@ -227,11 +227,19 @@ export default function TeamPage() {
                 <div className="flex flex-col items-center text-center mb-4">
                   <div className="relative mb-3">
                     <div className="h-[72px] w-[72px] rounded-full bg-gradient-to-br from-emerald-500 to-green-600 p-[2.5px]">
-                      <div className="flex h-full w-full items-center justify-center rounded-full bg-background">
-                        <span className="text-lg font-semibold bg-gradient-to-br from-emerald-500 to-green-600 bg-clip-text text-transparent">
-                          {initials}
-                        </span>
-                      </div>
+                      {m.avatar_url ? (
+                        <img
+                          src={m.avatar_url}
+                          alt={m.full_name}
+                          className="h-full w-full rounded-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full w-full items-center justify-center rounded-full bg-background">
+                          <span className="text-lg font-semibold bg-gradient-to-br from-emerald-500 to-green-600 bg-clip-text text-transparent">
+                            {initials}
+                          </span>
+                        </div>
+                      )}
                     </div>
                     {m.is_admin && (
                       <div className="absolute -bottom-1 left-1/2 -translate-x-1/2">

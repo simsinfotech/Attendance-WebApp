@@ -2,6 +2,7 @@
 
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useState,
@@ -15,6 +16,7 @@ interface UseUserReturn {
   employee: Employee | null
   isAdmin: boolean
   isLoading: boolean
+  refreshUser: () => Promise<void>
 }
 
 const UserContext = createContext<UseUserReturn>({
@@ -22,6 +24,7 @@ const UserContext = createContext<UseUserReturn>({
   employee: null,
   isAdmin: false,
   isLoading: true,
+  refreshUser: async () => {},
 })
 
 export function UserProvider({ children }: { children: ReactNode }) {
@@ -29,32 +32,22 @@ export function UserProvider({ children }: { children: ReactNode }) {
   const [employee, setEmployee] = useState<Employee | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    let cancelled = false
-
-    async function init() {
-      try {
-        const res = await fetch("/api/auth/me")
-        const data = await res.json()
-
-        if (!cancelled) {
-          setUser(data.user)
-          setEmployee(data.employee)
-          setIsLoading(false)
-        }
-      } catch {
-        if (!cancelled) {
-          setIsLoading(false)
-        }
-      }
-    }
-
-    init()
-
-    return () => {
-      cancelled = true
+  const fetchUser = useCallback(async () => {
+    try {
+      const res = await fetch("/api/auth/me")
+      const data = await res.json()
+      setUser(data.user)
+      setEmployee(data.employee)
+    } catch {
+      // ignore
+    } finally {
+      setIsLoading(false)
     }
   }, [])
+
+  useEffect(() => {
+    fetchUser()
+  }, [fetchUser])
 
   return (
     <UserContext.Provider
@@ -63,6 +56,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
         employee,
         isAdmin: employee?.is_admin ?? false,
         isLoading,
+        refreshUser: fetchUser,
       }}
     >
       {children}

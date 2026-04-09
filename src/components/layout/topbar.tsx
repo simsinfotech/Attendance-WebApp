@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { useUser } from "@/hooks/use-user"
 import { Button } from "@/components/ui/button"
-import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -69,6 +69,9 @@ export function Topbar() {
                   : "bg-gradient-to-br from-emerald-500 to-green-600"
               )}>
                 <Avatar className="h-8 w-8 border-2 border-white">
+                  {employee?.avatar_url && (
+                    <AvatarImage src={employee.avatar_url} alt={employee.full_name} />
+                  )}
                   <AvatarFallback className="bg-background text-primary text-xs font-semibold">
                     {initials}
                   </AvatarFallback>
