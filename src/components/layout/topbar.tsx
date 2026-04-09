@@ -1,7 +1,7 @@
 "use client"
 
 import { useMemo } from "react"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { useUser } from "@/hooks/use-user"
 import { Button } from "@/components/ui/button"
@@ -16,7 +16,7 @@ import {
 import { cn } from "@/lib/utils"
 import { NotificationBell } from "./notification-bell"
 import { MobileSidebar } from "./mobile-sidebar"
-import { LogOut, Settings, User } from "lucide-react"
+import { ArrowLeft, LogOut, Settings, User } from "lucide-react"
 
 function getGreeting(): string {
   const hour = new Date().getHours()
@@ -28,7 +28,10 @@ function getGreeting(): string {
 export function Topbar() {
   const { employee, isAdmin } = useUser()
   const router = useRouter()
+  const pathname = usePathname()
   const supabase = createClient()
+
+  const isHome = pathname === "/my-dashboard" || pathname === "/overview"
 
   const greeting = useMemo(() => getGreeting(), [])
 
@@ -49,6 +52,16 @@ export function Topbar() {
       <div className="h-16 flex items-center justify-between px-4 lg:px-6">
         <div className="flex items-center gap-3">
           <MobileSidebar />
+          {!isHome && (
+            <Button
+              variant="ghost"
+              size="icon"
+              className="lg:hidden h-9 w-9"
+              onClick={() => router.push(isAdmin ? "/overview" : "/my-dashboard")}
+            >
+              <ArrowLeft className="h-5 w-5" />
+            </Button>
+          )}
           <div className="hidden sm:block animate-fade-in">
             <h2 className="text-sm font-medium text-muted-foreground">
               {greeting},{" "}
