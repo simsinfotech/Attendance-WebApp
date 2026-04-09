@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { usePathname, useRouter } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Sidebar } from "@/components/layout/sidebar"
 import { Topbar } from "@/components/layout/topbar"
@@ -13,32 +12,34 @@ export default function DashboardLayout({
   children: React.ReactNode
 }) {
   const [collapsed, setCollapsed] = useState(false)
-  const pathname = usePathname()
-  const router = useRouter()
 
-  // Prevent mobile back button from exiting the app.
-  // Push a dummy history entry so pressing back pops it instead of leaving.
-  // Then listen for popstate — if user would exit, redirect to dashboard.
+  // Prevent mobile back button from exiting the web app.
+  // We push a guard entry on mount. When back is pressed and the guard
+  // is popped, we push it again and redirect to the dashboard.
   useEffect(() => {
-    const homePath = "/my-dashboard"
+    // Only apply on mobile-sized screens to avoid affecting desktop
+    if (window.innerWidth > 1024) return
+
+    const GUARD = "__dashboard_guard__"
+
+    // Push guard entry
+    if (!window.history.state?.[GUARD]) {
+      window.history.replaceState({ ...window.history.state, [GUARD]: true }, "")
+      window.history.pushState({ [GUARD]: true }, "", window.location.href)
+    }
 
     function handlePopState() {
-      // Re-push the guard entry so the next back press is also caught
-      window.history.pushState(null, "", window.location.href)
-      // Navigate to the dashboard (or previous logical page)
-      if (pathname !== homePath) {
-        router.push(homePath)
+      // The guard was popped — push it back and go to dashboard
+      window.history.pushState({ [GUARD]: true }, "", window.location.href)
+
+      if (window.location.pathname !== "/my-dashboard") {
+        window.location.href = "/my-dashboard"
       }
     }
 
-    // Push an extra history entry as a guard
-    window.history.pushState(null, "", window.location.href)
     window.addEventListener("popstate", handlePopState)
-
-    return () => {
-      window.removeEventListener("popstate", handlePopState)
-    }
-  }, [pathname, router])
+    return () => window.removeEventListener("popstate", handlePopState)
+  }, [])
 
   return (
     <UserProvider>
