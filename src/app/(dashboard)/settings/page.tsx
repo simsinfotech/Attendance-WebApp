@@ -149,15 +149,15 @@ export default function SettingsPage() {
 
       {/* Profile Hero Card */}
       <GlassCard className="overflow-hidden p-0">
-        {/* Banner gradient */}
-        <div className={`h-28 sm:h-36 bg-gradient-to-br ${employee?.is_admin ? "from-indigo-500 via-blue-500 to-indigo-600" : "from-emerald-500 via-green-500 to-emerald-600"} relative overflow-hidden`}>
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMiIvPjwvZz48L2c+PC9zdmc+')] opacity-50" />
-          {/* Decorative circles */}
-          <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-white/10" />
-          <div className="absolute -bottom-8 -right-4 w-28 h-28 rounded-full bg-white/5" />
-          <div className="absolute top-4 right-6 hidden sm:block">
-            <img src="/sims-logo.png" alt="" className="h-10 w-auto opacity-20" />
-          </div>
+        {/* Banner with company logo */}
+        <div className="h-32 sm:h-40 relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 border-b border-gray-200">
+          <img
+            src="/sims-infotech-logo.jpeg"
+            alt="Sims Infotech"
+            className="absolute inset-0 w-full h-full object-contain p-4 sm:p-6 opacity-30"
+          />
+          {/* Gradient overlay at bottom for smooth transition */}
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white/80 to-transparent" />
         </div>
 
         {/* Avatar & info section */}
