@@ -579,6 +579,7 @@ function EditEmployeeDialog({
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [fullName, setFullName] = useState(emp.full_name)
+  const [email, setEmail] = useState(emp.email)
   const [designation, setDesignation] = useState(emp.designation)
   const [department, setDepartment] = useState(emp.department ?? "")
   const [phone, setPhone] = useState(emp.phone ?? "")
@@ -591,6 +592,7 @@ function EditEmployeeDialog({
 
   function resetForm() {
     setFullName(emp.full_name)
+    setEmail(emp.email)
     setDesignation(emp.designation)
     setDepartment(emp.department ?? "")
     setPhone(emp.phone ?? "")
@@ -629,8 +631,23 @@ function EditEmployeeDialog({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!fullName || !designation) return
+    if (!fullName || !designation || !email) return
     setLoading(true)
+
+    // If email changed, update both auth and employee record via admin API
+    if (email.trim().toLowerCase() !== emp.email.toLowerCase()) {
+      const emailRes = await fetch("/api/employees/update-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ employee_id: emp.id, email: email.trim() }),
+      })
+      const emailData = await emailRes.json()
+      if (!emailRes.ok) {
+        toast.error(emailData.error || "Failed to update email")
+        setLoading(false)
+        return
+      }
+    }
 
     const { error } = await supabase
       .from("fs_employees")
@@ -689,10 +706,17 @@ function EditEmployeeDialog({
           <div className="space-y-2">
             <Label className="text-sm font-medium">Email</Label>
             <Input
-              value={emp.email}
-              disabled
-              className="bg-gray-100 border-gray-200 text-muted-foreground cursor-not-allowed"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              className="bg-gray-50 border-gray-200 focus:border-emerald-500/50"
             />
+            {email.trim().toLowerCase() !== emp.email.toLowerCase() && (
+              <p className="text-xs text-amber-700">
+                Changing the email will also update this user&apos;s login email.
+              </p>
+            )}
           </div>
 
           <div className="grid grid-cols-2 gap-3">
