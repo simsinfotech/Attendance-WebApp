@@ -15,24 +15,73 @@ export default function ResetPasswordPage() {
   const [focused, setFocused] = useState<string | null>(null)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const [sessionReady, setSessionReady] = useState(false)
+  const [initError, setInitError] = useState("")
   const router = useRouter()
   const supabase = createClient()
 
-  // Listen for the PASSWORD_RECOVERY event from the hash fragment
+  // On mount: exchange the recovery code (PKCE flow) for a session,
+  // or rely on the hash fragment (legacy flow). Either way, confirm a
+  // recovery session exists before allowing the user to type a new password.
   useEffect(() => {
+    let cancelled = false
+
+    async function initRecoverySession() {
+      if (typeof window === "undefined") return
+
+      const url = new URL(window.location.href)
+      const code = url.searchParams.get("code")
+
+      // PKCE flow: exchange the code for a session
+      if (code) {
+        const { error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
+        if (cancelled) return
+        if (exchangeError) {
+          setInitError("This reset link is invalid or has expired. Please request a new one.")
+          return
+        }
+        // Clean up the URL so the code can't be reused
+        window.history.replaceState({}, "", "/reset-password")
+        setSessionReady(true)
+        return
+      }
+
+      // Legacy hash flow: session is set automatically by the Supabase client
+      // when it parses access_token / refresh_token from the URL fragment.
+      // Confirm we actually have a session before enabling the form.
+      const { data } = await supabase.auth.getSession()
+      if (cancelled) return
+      if (data.session) {
+        setSessionReady(true)
+      } else {
+        setInitError("No active recovery session. Please click the reset link from your email again.")
+      }
+    }
+
+    initRecoverySession()
+
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event: string) => {
-        if (event === "PASSWORD_RECOVERY") {
-          // User arrived via password reset link - session is set, show the form
+        if (event === "PASSWORD_RECOVERY" || event === "SIGNED_IN") {
+          setSessionReady(true)
         }
       }
     )
-    return () => subscription.unsubscribe()
+
+    return () => {
+      cancelled = true
+      subscription.unsubscribe()
+    }
   }, [supabase])
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError("")
+
+    if (!sessionReady) {
+      setError("Recovery session not ready. Please wait a moment or click the reset link again.")
+      return
+    }
 
     if (password.length < 6) {
       setError("Password must be at least 6 characters")
@@ -53,6 +102,9 @@ export default function ResetPasswordPage() {
     if (updateError) {
       setError(updateError.message)
     } else {
+      // Sign out the temporary recovery session so the user must log in
+      // with their new password.
+      await supabase.auth.signOut()
       setSuccess(true)
       setTimeout(() => {
         router.push("/login")
@@ -84,7 +136,25 @@ export default function ResetPasswordPage() {
           <div className="h-1 bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500" />
 
           <div className="p-8">
-            {success ? (
+            {initError ? (
+              <div className="space-y-5 text-center">
+                <div className="flex justify-center">
+                  <div className="h-16 w-16 rounded-full bg-red-50 flex items-center justify-center">
+                    <Lock className="h-8 w-8 text-red-600" />
+                  </div>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold">Link Invalid or Expired</h2>
+                  <p className="text-sm text-gray-500 mt-2">{initError}</p>
+                </div>
+                <Button
+                  onClick={() => router.push("/login")}
+                  className="w-full h-12 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 border-0 rounded-xl"
+                >
+                  Back to Sign In
+                </Button>
+              </div>
+            ) : success ? (
               <div className="space-y-5 text-center">
                 <div className="flex justify-center">
                   <div className="h-16 w-16 rounded-full bg-emerald-50 flex items-center justify-center">
@@ -97,6 +167,11 @@ export default function ResetPasswordPage() {
                     Your password has been changed successfully. Redirecting to login...
                   </p>
                 </div>
+              </div>
+            ) : !sessionReady ? (
+              <div className="flex flex-col items-center justify-center py-10 gap-3">
+                <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+                <p className="text-sm text-gray-500">Verifying your reset link...</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5">
