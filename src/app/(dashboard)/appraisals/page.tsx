@@ -33,7 +33,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Plus, Loader2, Star } from "lucide-react"
+import { TbPlus, TbLoader2, TbStar } from "react-icons/tb"
 import { toast } from "sonner"
 import type { Appraisal, Employee } from "@/types"
 
@@ -131,7 +131,7 @@ export default function AppraisalsPage() {
                     <>
                       <div className="flex items-center gap-1 mb-1">
                         {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
+                          <TbStar
                             key={i}
                             className={`h-3.5 w-3.5 ${
                               i < Math.round(a.self_rating!)
@@ -160,7 +160,7 @@ export default function AppraisalsPage() {
                     <>
                       <div className="flex items-center gap-1 mb-1">
                         {Array.from({ length: 5 }).map((_, i) => (
-                          <Star
+                          <TbStar
                             key={i}
                             className={`h-3.5 w-3.5 ${
                               i < Math.round(a.manager_rating!)
@@ -288,7 +288,7 @@ function ReviewDialog({
                   onClick={() => setRating(v)}
                   className="p-1"
                 >
-                  <Star
+                  <TbStar
                     className={`h-7 w-7 transition-colors ${
                       v <= rating
                         ? "text-yellow-600 fill-yellow-400"
@@ -313,7 +313,7 @@ function ReviewDialog({
             />
           </div>
           <Button type="submit" className="w-full" disabled={loading || !rating}>
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit Review
           </Button>
         </form>
@@ -367,7 +367,7 @@ function NewAppraisalDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button />}>
-        <Plus className="mr-2 h-4 w-4" />
+        <TbPlus className="mr-2 h-4 w-4" />
         New Appraisal
       </DialogTrigger>
       <DialogContent>
@@ -400,7 +400,7 @@ function NewAppraisalDialog({
             </Select>
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Start Appraisal
           </Button>
         </form>

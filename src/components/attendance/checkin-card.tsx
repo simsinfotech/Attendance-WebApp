@@ -6,7 +6,7 @@ import { GlassCard } from "@/components/shared/glass-card"
 import { Button } from "@/components/ui/button"
 import { useGeolocation } from "@/hooks/use-geolocation"
 import { useAttendance } from "@/hooks/use-attendance"
-import { MapPin, Clock, LogIn, LogOut, Loader2, Wifi, Building2 } from "lucide-react"
+import { TbMapPin, TbClock, TbLogin, TbLogout, TbLoader2, TbWifi, TbBuilding } from "react-icons/tb"
 import { toast } from "sonner"
 import { OFFICE_TIMINGS } from "@/lib/config"
 
@@ -99,7 +99,7 @@ export function CheckinCard() {
               {time ? format(time, "EEEE, MMMM d, yyyy") : "\u00A0"}
             </p>
             <div className="inline-flex items-center gap-1.5 mt-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-xs text-emerald-600 font-medium">
-              <Building2 className="h-3 w-3" />
+              <TbBuilding className="h-3 w-3" />
               Office Hours: {OFFICE_TIMINGS.label}
             </div>
           </div>
@@ -108,7 +108,7 @@ export function CheckinCard() {
           <div className="flex justify-center">
             {loading ? (
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-200">
-                <Loader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
+                <TbLoader2 className="h-3.5 w-3.5 animate-spin text-muted-foreground" />
                 <span className="text-sm text-muted-foreground">Loading status...</span>
               </div>
             ) : isCheckedOut ? (
@@ -120,14 +120,14 @@ export function CheckinCard() {
               </div>
             ) : isCheckedIn ? (
               <div className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-emerald-50 border border-emerald-200">
-                <Wifi className="h-3.5 w-3.5 text-emerald-600" />
+                <TbWifi className="h-3.5 w-3.5 text-emerald-600" />
                 <span className="text-sm font-medium text-emerald-600">
                   Working since {format(new Date(todayRecord!.check_in), "hh:mm a")}
                 </span>
                 {getWorkingDuration() && (
                   <>
                     <span className="text-emerald-600/30">|</span>
-                    <Clock className="h-3.5 w-3.5 text-emerald-600/70" />
+                    <TbClock className="h-3.5 w-3.5 text-emerald-600/70" />
                     <span className="text-sm text-emerald-600/70 tabular-nums">{getWorkingDuration()}</span>
                   </>
                 )}
@@ -161,11 +161,11 @@ export function CheckinCard() {
                   }`}
                 >
                   {isLoading ? (
-                    <Loader2 className="mr-2.5 h-5 w-5 animate-spin" />
+                    <TbLoader2 className="mr-2.5 h-5 w-5 animate-spin" />
                   ) : isCheckedIn ? (
-                    <LogOut className="mr-2.5 h-5 w-5" />
+                    <TbLogout className="mr-2.5 h-5 w-5" />
                   ) : (
-                    <LogIn className="mr-2.5 h-5 w-5" />
+                    <TbLogin className="mr-2.5 h-5 w-5" />
                   )}
                   {isCheckedIn ? "Check Out" : "Check In"}
                 </Button>
@@ -177,7 +177,7 @@ export function CheckinCard() {
           {todayRecord?.check_in_address && (
             <div className="flex items-center justify-center">
               <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gray-50 border border-gray-100 max-w-md">
-                <MapPin className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
+                <TbMapPin className="h-3.5 w-3.5 shrink-0 text-emerald-600" />
                 <span className="text-xs text-muted-foreground truncate">{todayRecord.check_in_address}</span>
               </div>
             </div>

@@ -25,16 +25,16 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import {
-  Plus,
-  Loader2,
-  Pin,
-  Trash2,
-  Megaphone,
-  Clock,
-  User,
-  AlertCircle,
-  PinOff,
-} from "lucide-react"
+  TbPlus,
+  TbLoader2,
+  TbPin,
+  TbTrash,
+  TbSpeakerphone,
+  TbClock,
+  TbUser,
+  TbAlertCircle,
+  TbPinnedOff,
+} from "react-icons/tb"
 import { toast } from "sonner"
 import { formatDistanceToNow } from "date-fns"
 import type { Announcement } from "@/types"
@@ -134,7 +134,7 @@ export default function AnnouncementsPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-fuchsia-600 shadow-lg shadow-purple-500/25">
-            <Megaphone className="h-6 w-6 text-white" />
+            <TbSpeakerphone className="h-6 w-6 text-white" />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight">
@@ -158,7 +158,7 @@ export default function AnnouncementsPage() {
       {announcements.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted/50 mb-4">
-            <Megaphone className="h-8 w-8 text-muted-foreground" />
+            <TbSpeakerphone className="h-8 w-8 text-muted-foreground" />
           </div>
           <h3 className="text-lg font-medium text-muted-foreground">
             No announcements yet
@@ -175,7 +175,7 @@ export default function AnnouncementsPage() {
           {pinned.length > 0 && (
             <div className="space-y-3">
               <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                <Pin className="h-3.5 w-3.5" />
+                <TbPin className="h-3.5 w-3.5" />
                 <span>Pinned</span>
               </div>
               <div className="space-y-3">
@@ -198,7 +198,7 @@ export default function AnnouncementsPage() {
             <div className="space-y-3">
               {pinned.length > 0 && (
                 <div className="flex items-center gap-2 text-sm font-medium text-muted-foreground">
-                  <Clock className="h-3.5 w-3.5" />
+                  <TbClock className="h-3.5 w-3.5" />
                   <span>Recent</span>
                 </div>
               )}
@@ -251,7 +251,7 @@ function AnnouncementCard({
             {/* Title row */}
             <div className="flex items-center gap-2.5 flex-wrap">
               {isPinned && (
-                <Pin className="h-3.5 w-3.5 text-purple-600 shrink-0" />
+                <TbPin className="h-3.5 w-3.5 text-purple-600 shrink-0" />
               )}
               <h3 className="font-semibold text-[15px] leading-tight">
                 {a.title}
@@ -275,12 +275,12 @@ function AnnouncementCard({
             {/* Meta */}
             <div className="flex items-center gap-3 text-xs text-gray-400 pt-1">
               <div className="flex items-center gap-1.5">
-                <User className="h-3 w-3" />
+                <TbUser className="h-3 w-3" />
                 <span>{a.author?.full_name ?? "Admin"}</span>
               </div>
               <span className="text-gray-200">|</span>
               <div className="flex items-center gap-1.5">
-                <Clock className="h-3 w-3" />
+                <TbClock className="h-3 w-3" />
                 <span>
                   {formatDistanceToNow(new Date(a.created_at), {
                     addSuffix: true,
@@ -301,9 +301,9 @@ function AnnouncementCard({
                 title={a.is_pinned ? "Unpin" : "Pin to top"}
               >
                 {a.is_pinned ? (
-                  <PinOff className="h-4 w-4 text-purple-600" />
+                  <TbPinnedOff className="h-4 w-4 text-purple-600" />
                 ) : (
-                  <Pin className="h-4 w-4 text-muted-foreground" />
+                  <TbPin className="h-4 w-4 text-muted-foreground" />
                 )}
               </Button>
               <Button
@@ -313,7 +313,7 @@ function AnnouncementCard({
                 onClick={() => onDelete(a.id)}
                 title="Delete"
               >
-                <Trash2 className="h-4 w-4 text-muted-foreground hover:text-red-600" />
+                <TbTrash className="h-4 w-4 text-muted-foreground hover:text-red-600" />
               </Button>
             </div>
           )}
@@ -382,13 +382,13 @@ function NewAnnouncementDialog({
           <Button className="bg-gradient-to-r from-purple-500 to-fuchsia-600 hover:from-purple-600 hover:to-fuchsia-700 text-white border-0 shadow-lg shadow-purple-500/25" />
         }
       >
-        <Plus className="mr-2 h-4 w-4" />
+        <TbPlus className="mr-2 h-4 w-4" />
         New Announcement
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Megaphone className="h-5 w-5 text-purple-600" />
+            <TbSpeakerphone className="h-5 w-5 text-purple-600" />
             Post Announcement
           </DialogTitle>
         </DialogHeader>
@@ -439,7 +439,7 @@ function NewAnnouncementDialog({
 
           <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-3">
             <div className="flex items-center gap-2">
-              <Pin className="h-4 w-4 text-muted-foreground" />
+              <TbPin className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">Pin to top</span>
             </div>
             <Switch checked={isPinned} onCheckedChange={setIsPinned} />
@@ -450,7 +450,7 @@ function NewAnnouncementDialog({
             className="w-full bg-gradient-to-r from-purple-500 to-fuchsia-600 hover:from-purple-600 hover:to-fuchsia-700 text-white border-0 shadow-lg shadow-purple-500/25"
             disabled={loading}
           >
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Post Announcement
           </Button>
         </form>

@@ -18,19 +18,19 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import {
-  ChevronLeft,
-  ChevronRight,
-  CalendarDays,
-  TableProperties,
-  MapPin,
-  Clock,
-  UserCheck,
-  UserX,
-  AlertTriangle,
-  Timer,
-  ClipboardList,
-  Download,
-} from "lucide-react"
+  TbChevronLeft,
+  TbChevronRight,
+  TbCalendarEvent,
+  TbTable,
+  TbMapPin,
+  TbClock,
+  TbUserCheck,
+  TbUserX,
+  TbAlertTriangle,
+  TbClockPlay,
+  TbClipboardList,
+  TbDownload,
+} from "react-icons/tb"
 import { format, subMonths, addMonths, startOfMonth, endOfMonth } from "date-fns"
 import type { Attendance, Employee } from "@/types"
 
@@ -135,7 +135,7 @@ export default function AttendancePage() {
       <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 shadow-lg shadow-emerald-500/25">
-            <ClipboardList className="h-5 w-5 text-white" />
+            <TbClipboardList className="h-5 w-5 text-white" />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Attendance</h1>
@@ -151,7 +151,7 @@ export default function AttendancePage() {
               onClick={() => setMonth(subMonths(month, 1))}
               className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-gray-100 hover:text-foreground"
             >
-              <ChevronLeft className="h-4 w-4" />
+              <TbChevronLeft className="h-4 w-4" />
             </button>
             <span className="min-w-[120px] px-2 text-center text-sm font-semibold">
               {format(month, "MMMM yyyy")}
@@ -160,7 +160,7 @@ export default function AttendancePage() {
               onClick={() => setMonth(addMonths(month, 1))}
               className="flex h-8 w-8 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-gray-100 hover:text-foreground"
             >
-              <ChevronRight className="h-4 w-4" />
+              <TbChevronRight className="h-4 w-4" />
             </button>
           </div>
 
@@ -186,7 +186,7 @@ export default function AttendancePage() {
             disabled={records.length === 0}
             className="rounded-full border-gray-200 bg-gray-50 hover:bg-gray-100"
           >
-            <Download className="h-4 w-4 mr-2" />
+            <TbDownload className="h-4 w-4 mr-2" />
             Export CSV
           </Button>
         </div>
@@ -194,10 +194,10 @@ export default function AttendancePage() {
 
       {/* ── Stats Bar ── */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <StatCard icon={<UserCheck className="h-4 w-4" />} label="Present" value={stats.present} color="emerald" />
-        <StatCard icon={<Timer className="h-4 w-4" />} label="Late" value={stats.late} color="orange" />
-        <StatCard icon={<UserX className="h-4 w-4" />} label="Absent" value={stats.absent} color="red" />
-        <StatCard icon={<AlertTriangle className="h-4 w-4" />} label="Half Day" value={stats.halfDay} color="amber" />
+        <StatCard icon={<TbUserCheck className="h-4 w-4" />} label="Present" value={stats.present} color="emerald" />
+        <StatCard icon={<TbClockPlay className="h-4 w-4" />} label="Late" value={stats.late} color="orange" />
+        <StatCard icon={<TbUserX className="h-4 w-4" />} label="Absent" value={stats.absent} color="red" />
+        <StatCard icon={<TbAlertTriangle className="h-4 w-4" />} label="Half Day" value={stats.halfDay} color="amber" />
       </div>
 
       {/* ── Tabs ── */}
@@ -207,14 +207,14 @@ export default function AttendancePage() {
             value="table"
             className="gap-1.5 rounded-full px-4 text-xs data-active:bg-gradient-to-r data-active:from-emerald-500/15 data-active:to-green-500/15 data-active:text-foreground data-active:shadow-none"
           >
-            <TableProperties className="h-3.5 w-3.5" />
+            <TbTable className="h-3.5 w-3.5" />
             Table
           </TabsTrigger>
           <TabsTrigger
             value="calendar"
             className="gap-1.5 rounded-full px-4 text-xs data-active:bg-gradient-to-r data-active:from-emerald-500/15 data-active:to-green-500/15 data-active:text-foreground data-active:shadow-none"
           >
-            <CalendarDays className="h-3.5 w-3.5" />
+            <TbCalendarEvent className="h-3.5 w-3.5" />
             Calendar
           </TabsTrigger>
           {isAdmin && (
@@ -222,7 +222,7 @@ export default function AttendancePage() {
               value="map"
               className="gap-1.5 rounded-full px-4 text-xs data-active:bg-gradient-to-r data-active:from-emerald-500/15 data-active:to-green-500/15 data-active:text-foreground data-active:shadow-none"
             >
-              <MapPin className="h-3.5 w-3.5" />
+              <TbMapPin className="h-3.5 w-3.5" />
               Map
             </TabsTrigger>
           )}
@@ -326,7 +326,7 @@ function EmptyState({ message }: { message?: string }) {
   return (
     <GlassCard className="flex flex-col items-center justify-center py-16 text-center">
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-50 to-green-50 mb-4">
-        <Clock className="h-7 w-7 text-emerald-600" />
+        <TbClock className="h-7 w-7 text-emerald-600" />
       </div>
       <h3 className="text-base font-semibold text-foreground">No records found</h3>
       <p className="mt-1 max-w-xs text-sm text-muted-foreground">

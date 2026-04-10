@@ -8,7 +8,7 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-mono);
   --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -90,9 +90,25 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-feature-settings: "cv11", "ss01", "ss03", "cv02";
+    font-variant-ligatures: common-ligatures;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   html {
     @apply font-sans;
+    font-feature-settings: "cv11", "ss01", "ss03", "cv02";
+  }
+  h1, h2, h3, h4, h5, h6 {
+    letter-spacing: -0.02em;
+    font-weight: 600;
+  }
+  h1 { letter-spacing: -0.03em; font-weight: 700; }
+  h2 { letter-spacing: -0.025em; }
+  /* Tabular numerals for tables, numbers, dates, times */
+  .tabular-nums, table, time, [data-slot="badge"] {
+    font-variant-numeric: tabular-nums;
   }
 }
 

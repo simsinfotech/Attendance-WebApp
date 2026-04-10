@@ -12,7 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-import { Check, X, Loader2 } from "lucide-react"
+import { TbCheck, TbX, TbLoader2 } from "react-icons/tb"
 import { toast } from "sonner"
 import { format } from "date-fns"
 import type { LeaveRequest } from "@/types"
@@ -162,9 +162,9 @@ export function LeaveApprovalDialog({
               className="flex-1 bg-green-600 hover:bg-green-700"
             >
               {loading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
-                <Check className="mr-2 h-4 w-4" />
+                <TbCheck className="mr-2 h-4 w-4" />
               )}
               Approve
             </Button>
@@ -175,9 +175,9 @@ export function LeaveApprovalDialog({
               className="flex-1"
             >
               {loading ? (
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />
               ) : (
-                <X className="mr-2 h-4 w-4" />
+                <TbX className="mr-2 h-4 w-4" />
               )}
               Reject
             </Button>

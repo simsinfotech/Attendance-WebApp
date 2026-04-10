@@ -5,22 +5,21 @@ import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { useUser } from "@/hooks/use-user"
 import {
-  LayoutDashboard,
-  UserCircle,
-  Users,
-  Clock,
-  CalendarOff,
-  ListTodo,
-  FileText,
-  Target,
-  MessageSquare,
-  Award,
-  CreditCard,
-  Bell,
-  Megaphone,
-  Settings,
-  ChevronLeft,
-} from "lucide-react"
+  TbLayoutDashboard,
+  TbUserCircle,
+  TbUsers,
+  TbClock,
+  TbCalendarOff,
+  TbChecklist,
+  TbFileText,
+  TbTarget,
+  TbMessage,
+  TbAward,
+  TbCreditCard,
+  TbSpeakerphone,
+  TbSettings,
+  TbChevronLeft,
+} from "react-icons/tb"
 import { Button } from "@/components/ui/button"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { OrgSwitcher } from "./org-switcher"
@@ -42,32 +41,32 @@ interface NavSection {
 }
 
 const adminNav = [
-  { label: "Overview", href: "/overview", icon: LayoutDashboard },
-  { label: "My Dashboard", href: "/my-dashboard", icon: UserCircle },
-  { label: "Team", href: "/team", icon: Users },
-  { label: "Attendance", href: "/attendance", icon: Clock },
-  { label: "Leave", href: "/leave", icon: CalendarOff },
-  { label: "Tasks", href: "/tasks", icon: ListTodo },
-  { label: "EOD Reports", href: "/eod-reports", icon: FileText },
-  { label: "Payroll", href: "/payroll", icon: CreditCard },
-  { label: "OKRs", href: "/okrs", icon: Target },
-  { label: "Feedback", href: "/feedback", icon: MessageSquare },
-  { label: "Appraisals", href: "/appraisals", icon: Award },
-  { label: "Announcements", href: "/announcements", icon: Megaphone },
-  { label: "Settings", href: "/settings", icon: Settings },
+  { label: "Overview", href: "/overview", icon: TbLayoutDashboard },
+  { label: "My Dashboard", href: "/my-dashboard", icon: TbUserCircle },
+  { label: "Team", href: "/team", icon: TbUsers },
+  { label: "Attendance", href: "/attendance", icon: TbClock },
+  { label: "Leave", href: "/leave", icon: TbCalendarOff },
+  { label: "Tasks", href: "/tasks", icon: TbChecklist },
+  { label: "EOD Reports", href: "/eod-reports", icon: TbFileText },
+  { label: "Payroll", href: "/payroll", icon: TbCreditCard },
+  { label: "OKRs", href: "/okrs", icon: TbTarget },
+  { label: "Feedback", href: "/feedback", icon: TbMessage },
+  { label: "Appraisals", href: "/appraisals", icon: TbAward },
+  { label: "Announcements", href: "/announcements", icon: TbSpeakerphone },
+  { label: "Settings", href: "/settings", icon: TbSettings },
 ]
 
 const employeeNav = [
-  { label: "My Dashboard", href: "/my-dashboard", icon: LayoutDashboard },
-  { label: "Attendance", href: "/attendance", icon: Clock },
-  { label: "Leave", href: "/leave", icon: CalendarOff },
-  { label: "Tasks", href: "/tasks", icon: ListTodo },
-  { label: "EOD Reports", href: "/eod-reports", icon: FileText },
-  { label: "Payroll", href: "/payroll", icon: CreditCard },
-  { label: "OKRs", href: "/okrs", icon: Target },
-  { label: "Feedback", href: "/feedback", icon: MessageSquare },
-  { label: "Appraisals", href: "/appraisals", icon: Award },
-  { label: "Announcements", href: "/announcements", icon: Megaphone },
+  { label: "My Dashboard", href: "/my-dashboard", icon: TbLayoutDashboard },
+  { label: "Attendance", href: "/attendance", icon: TbClock },
+  { label: "Leave", href: "/leave", icon: TbCalendarOff },
+  { label: "Tasks", href: "/tasks", icon: TbChecklist },
+  { label: "EOD Reports", href: "/eod-reports", icon: TbFileText },
+  { label: "Payroll", href: "/payroll", icon: TbCreditCard },
+  { label: "OKRs", href: "/okrs", icon: TbTarget },
+  { label: "Feedback", href: "/feedback", icon: TbMessage },
+  { label: "Appraisals", href: "/appraisals", icon: TbAward },
+  { label: "Announcements", href: "/announcements", icon: TbSpeakerphone },
 ]
 
 function groupNavItems(nav: NavItem[], isAdmin: boolean): NavSection[] {
@@ -158,7 +157,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             onClick={onToggle}
             className="h-8 w-8 shrink-0 hover:bg-gray-100"
           >
-            <ChevronLeft className="h-4 w-4 transition-transform" />
+            <TbChevronLeft className="h-4 w-4 transition-transform" />
           </Button>
         )}
       </div>
@@ -173,7 +172,7 @@ export function Sidebar({ collapsed, onToggle }: SidebarProps) {
             className="h-8 w-8 shrink-0 hover:bg-gray-100"
             title="Expand sidebar"
           >
-            <ChevronLeft className="h-4 w-4 transition-transform rotate-180" />
+            <TbChevronLeft className="h-4 w-4 transition-transform rotate-180" />
           </Button>
         </div>
       )}

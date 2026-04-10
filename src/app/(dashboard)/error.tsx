@@ -1,6 +1,6 @@
 "use client"
 
-import { AlertTriangle } from "lucide-react"
+import { TbAlertTriangle } from "react-icons/tb"
 
 export default function DashboardError({
   error,
@@ -15,7 +15,7 @@ export default function DashboardError({
     <div className="flex flex-col items-center justify-center min-h-[60vh] space-y-6">
       <div className="glass rounded-2xl p-8 text-center max-w-md space-y-4">
         <div className="mx-auto w-14 h-14 rounded-full bg-red-50 flex items-center justify-center">
-          <AlertTriangle className="h-7 w-7 text-red-600" />
+          <TbAlertTriangle className="h-7 w-7 text-red-600" />
         </div>
         <h2 className="text-xl font-bold">Something went wrong</h2>
         <p className="text-sm text-gray-500">{error.message}</p>

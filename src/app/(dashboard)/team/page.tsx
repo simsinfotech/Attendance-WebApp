@@ -24,24 +24,24 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import {
-  Users,
-  Mail,
-  Phone,
-  Calendar,
-  Briefcase,
-  Search,
-  UserX,
-  Plus,
-  Loader2,
-  UserPlus,
-  Eye,
-  EyeOff,
-  Pencil,
-  UserMinus,
-  UserCheck,
-  ToggleLeft,
-  KeyRound,
-} from "lucide-react"
+  TbUsers,
+  TbMail,
+  TbPhone,
+  TbCalendar,
+  TbBriefcase,
+  TbSearch,
+  TbUserX,
+  TbPlus,
+  TbLoader2,
+  TbUserPlus,
+  TbEye,
+  TbEyeOff,
+  TbPencil,
+  TbUserMinus,
+  TbUserCheck,
+  TbToggleLeft,
+  TbKey,
+} from "react-icons/tb"
 import { toast } from "sonner"
 import { format } from "date-fns"
 import type { Employee } from "@/types"
@@ -59,6 +59,62 @@ export default function TeamPage() {
     if (!employee) return
     fetchMembers()
   }, [employee?.id, orgId, showInactive])
+
+  // Subscribe to realtime changes on fs_employees so the admin panel
+  // updates automatically when employees change (e.g. profile photo
+  // upload) without requiring a manual refresh.
+  useEffect(() => {
+    if (!orgId) return
+
+    const channel = supabase
+      .channel(`team-${orgId}`)
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "fs_employees",
+          filter: `org_id=eq.${orgId}`,
+        },
+        (payload: {
+          eventType: "INSERT" | "UPDATE" | "DELETE"
+          new: Partial<Employee> | null
+          old: Partial<Employee> | null
+        }) => {
+          const newRow = payload.new as Employee | null
+          const oldRow = payload.old as Employee | null
+
+          setMembers((prev) => {
+            if (payload.eventType === "DELETE") {
+              return prev.filter((m) => m.id !== oldRow?.id)
+            }
+
+            if (!newRow) return prev
+
+            // Respect the showInactive filter
+            if (!showInactive && newRow.is_active === false) {
+              return prev.filter((m) => m.id !== newRow.id)
+            }
+
+            const existing = prev.findIndex((m) => m.id === newRow.id)
+            if (existing === -1) {
+              const next = [...prev, newRow]
+              next.sort((a, b) => a.full_name.localeCompare(b.full_name))
+              return next
+            }
+
+            const next = [...prev]
+            next[existing] = { ...next[existing], ...newRow }
+            return next
+          })
+        }
+      )
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [orgId, showInactive, supabase])
 
   async function fetchMembers() {
     let query = supabase
@@ -102,7 +158,7 @@ export default function TeamPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 shadow-lg shadow-emerald-500/25">
-            <Users className="h-6 w-6 text-white" />
+            <TbUsers className="h-6 w-6 text-white" />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Team</h1>
@@ -121,7 +177,7 @@ export default function TeamPage() {
                   : "bg-gray-50 border-gray-200 text-muted-foreground hover:bg-gray-100"
               }`}
             >
-              <ToggleLeft className="h-4 w-4" />
+              <TbToggleLeft className="h-4 w-4" />
               {showInactive ? "Showing Inactive" : "Show Inactive"}
             </button>
           )}
@@ -140,7 +196,7 @@ export default function TeamPage() {
       {/* Search & Filter Bar */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <TbSearch className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             placeholder="Search by name, email, or designation..."
             value={search}
@@ -153,7 +209,7 @@ export default function TeamPage() {
           onValueChange={(v) => v !== null && setDepartment(v)}
         >
           <SelectTrigger className="w-full sm:w-[200px] bg-gray-50 border-gray-200">
-            <Briefcase className="h-4 w-4 mr-2 text-muted-foreground" />
+            <TbBriefcase className="h-4 w-4 mr-2 text-muted-foreground" />
             <SelectValue placeholder="All Departments" />
           </SelectTrigger>
           <SelectContent>
@@ -171,7 +227,7 @@ export default function TeamPage() {
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
           <div className="flex h-16 w-16 items-center justify-center rounded-full bg-muted/50 mb-4">
-            <UserX className="h-8 w-8 text-muted-foreground" />
+            <TbUserX className="h-8 w-8 text-muted-foreground" />
           </div>
           <h3 className="text-lg font-medium text-muted-foreground">
             No team members found
@@ -266,7 +322,7 @@ export default function TeamPage() {
                       variant="secondary"
                       className="bg-gray-100 text-muted-foreground border-gray-200 text-xs font-normal"
                     >
-                      <Briefcase className="h-3 w-3 mr-1.5" />
+                      <TbBriefcase className="h-3 w-3 mr-1.5" />
                       {m.department}
                     </Badge>
                   </div>
@@ -275,7 +331,7 @@ export default function TeamPage() {
                 {/* Info rows */}
                 <div className="space-y-2.5 pt-3 border-t border-gray-200">
                   <div className="flex items-center gap-2.5 text-sm text-muted-foreground">
-                    <Calendar className="h-3.5 w-3.5 shrink-0 text-emerald-600/60" />
+                    <TbCalendar className="h-3.5 w-3.5 shrink-0 text-emerald-600/60" />
                     <span>
                       Joined {format(new Date(m.date_of_joining), "MMM yyyy")}
                     </span>
@@ -285,7 +341,7 @@ export default function TeamPage() {
                     href={`mailto:${m.email}`}
                     className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 transition-colors group/email"
                   >
-                    <Mail className="h-3.5 w-3.5 shrink-0 text-emerald-600/60 group-hover/email:text-emerald-600" />
+                    <TbMail className="h-3.5 w-3.5 shrink-0 text-emerald-600/60 group-hover/email:text-emerald-600" />
                     <span className="truncate">{m.email}</span>
                   </a>
 
@@ -294,7 +350,7 @@ export default function TeamPage() {
                       href={`tel:${m.phone}`}
                       className="flex items-center gap-2.5 text-sm text-muted-foreground hover:text-emerald-600 transition-colors group/phone"
                     >
-                      <Phone className="h-3.5 w-3.5 shrink-0 text-emerald-600/60 group-hover/phone:text-emerald-600" />
+                      <TbPhone className="h-3.5 w-3.5 shrink-0 text-emerald-600/60 group-hover/phone:text-emerald-600" />
                       <span>{m.phone}</span>
                     </a>
                   )}
@@ -343,12 +399,12 @@ function ReactivateEmployeeButton({
           <button className="p-1.5 rounded-lg hover:bg-emerald-50 text-muted-foreground hover:text-emerald-600 transition-colors" />
         }
       >
-        <UserCheck className="h-3.5 w-3.5" />
+        <TbUserCheck className="h-3.5 w-3.5" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-emerald-600">
-            <UserCheck className="h-5 w-5" />
+            <TbUserCheck className="h-5 w-5" />
             Reactivate Employee
           </DialogTitle>
         </DialogHeader>
@@ -365,7 +421,7 @@ function ReactivateEmployeeButton({
             disabled={loading}
             className="bg-emerald-600 hover:bg-emerald-700 text-white border-0"
           >
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Reactivate
           </Button>
         </div>
@@ -454,13 +510,13 @@ function AddEmployeeDialog({
           <Button className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white border-0 shadow-lg shadow-emerald-500/25" />
         }
       >
-        <Plus className="mr-2 h-4 w-4" />
+        <TbPlus className="mr-2 h-4 w-4" />
         Add Employee
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <UserPlus className="h-5 w-5 text-emerald-600" />
+            <TbUserPlus className="h-5 w-5 text-emerald-600" />
             Add New Employee
           </DialogTitle>
         </DialogHeader>
@@ -506,9 +562,9 @@ function AddEmployeeDialog({
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 {showPassword ? (
-                  <EyeOff className="h-4 w-4" />
+                  <TbEyeOff className="h-4 w-4" />
                 ) : (
-                  <Eye className="h-4 w-4" />
+                  <TbEye className="h-4 w-4" />
                 )}
               </button>
             </div>
@@ -549,7 +605,7 @@ function AddEmployeeDialog({
 
           <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-3">
             <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <TbUsers className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">Admin privileges</span>
             </div>
             <Switch checked={isAdminRole} onCheckedChange={setIsAdminRole} />
@@ -560,7 +616,7 @@ function AddEmployeeDialog({
             className="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white border-0 shadow-lg shadow-emerald-500/25"
             disabled={loading}
           >
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Add Employee
           </Button>
         </form>
@@ -690,12 +746,12 @@ function EditEmployeeDialog({
           <button className="p-1.5 rounded-lg hover:bg-gray-200 text-muted-foreground hover:text-foreground transition-colors" />
         }
       >
-        <Pencil className="h-3.5 w-3.5" />
+        <TbPencil className="h-3.5 w-3.5" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <Pencil className="h-5 w-5 text-emerald-600" />
+            <TbPencil className="h-5 w-5 text-emerald-600" />
             Edit Employee
           </DialogTitle>
         </DialogHeader>
@@ -758,7 +814,7 @@ function EditEmployeeDialog({
 
           <div className="flex items-center justify-between rounded-lg border border-gray-200 bg-gray-50 p-3">
             <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <TbUsers className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">Admin privileges</span>
             </div>
             <Switch checked={isAdminRole} onCheckedChange={setIsAdminRole} />
@@ -772,13 +828,13 @@ function EditEmployeeDialog({
                 onClick={() => setShowResetPassword(true)}
                 className="flex items-center gap-2 text-sm text-amber-700 hover:text-amber-800 font-medium"
               >
-                <KeyRound className="h-4 w-4" />
+                <TbKey className="h-4 w-4" />
                 Reset Password
               </button>
             ) : (
               <>
                 <div className="flex items-center gap-2">
-                  <KeyRound className="h-4 w-4 text-amber-700" />
+                  <TbKey className="h-4 w-4 text-amber-700" />
                   <span className="text-sm font-medium text-amber-800">Set New Password</span>
                 </div>
                 <div className="relative">
@@ -794,7 +850,7 @@ function EditEmployeeDialog({
                     onClick={() => setShowNewPassword(!showNewPassword)}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
-                    {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    {showNewPassword ? <TbEyeOff className="h-4 w-4" /> : <TbEye className="h-4 w-4" />}
                   </button>
                 </div>
                 <div className="flex gap-2">
@@ -804,7 +860,7 @@ function EditEmployeeDialog({
                     disabled={resetting}
                     className="flex-1 bg-amber-600 hover:bg-amber-700 text-white border-0"
                   >
-                    {resetting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {resetting && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
                     Update Password
                   </Button>
                   <Button
@@ -831,7 +887,7 @@ function EditEmployeeDialog({
             className="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white border-0 shadow-lg shadow-emerald-500/25"
             disabled={loading}
           >
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Save Changes
           </Button>
         </form>
@@ -875,12 +931,12 @@ function DeactivateEmployeeButton({
           <button className="p-1.5 rounded-lg hover:bg-red-50 text-muted-foreground hover:text-red-600 transition-colors" />
         }
       >
-        <UserMinus className="h-3.5 w-3.5" />
+        <TbUserMinus className="h-3.5 w-3.5" />
       </DialogTrigger>
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-red-600">
-            <UserMinus className="h-5 w-5" />
+            <TbUserMinus className="h-5 w-5" />
             Deactivate Employee
           </DialogTitle>
         </DialogHeader>
@@ -900,7 +956,7 @@ function DeactivateEmployeeButton({
             disabled={loading}
             className="bg-red-600 hover:bg-red-700 text-white border-0"
           >
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Deactivate
           </Button>
         </div>

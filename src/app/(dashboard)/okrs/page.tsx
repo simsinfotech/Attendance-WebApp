@@ -24,7 +24,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Plus, Loader2, Target, ChevronDown, ChevronUp, Sparkles } from "lucide-react"
+import { TbPlus, TbLoader2, TbTarget, TbChevronDown, TbChevronUp, TbSparkles } from "react-icons/tb"
 import { toast } from "sonner"
 import type { Okr, KeyResult, Employee } from "@/types"
 
@@ -172,7 +172,7 @@ export default function OkrsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-green-600 shadow-lg shadow-emerald-500/25">
-            <Target className="h-6 w-6 text-white" />
+            <TbTarget className="h-6 w-6 text-white" />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight">OKRs</h1>
@@ -226,7 +226,7 @@ export default function OkrsPage() {
           /* Empty state */
           <GlassCard className="flex flex-col items-center justify-center py-16 text-center">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-violet-100 to-purple-100 mb-4">
-              <Target className="h-8 w-8 text-violet-600" />
+              <TbTarget className="h-8 w-8 text-violet-600" />
             </div>
             <h3 className="text-lg font-semibold mb-1">No OKRs for {selectedQuarter} {selectedYear}</h3>
             <p className="text-sm text-muted-foreground max-w-sm">
@@ -278,9 +278,9 @@ export default function OkrsPage() {
                         {okr.key_results.length} Key Result{okr.key_results.length > 1 ? "s" : ""}
                       </span>
                       {expanded ? (
-                        <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                        <TbChevronUp className="h-4 w-4 text-muted-foreground" />
                       ) : (
-                        <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                        <TbChevronDown className="h-4 w-4 text-muted-foreground" />
                       )}
                     </button>
 
@@ -413,14 +413,14 @@ function NewOkrDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button className="bg-gradient-to-r from-emerald-500 to-green-600 hover:from-violet-600 hover:to-purple-700 border-0 shadow-lg shadow-emerald-500/25 text-white" />}>
-        <Plus className="mr-2 h-4 w-4" />
+        <TbPlus className="mr-2 h-4 w-4" />
         New OKR
       </DialogTrigger>
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-green-600">
-              <Target className="h-4.5 w-4.5 text-white" />
+              <TbTarget className="h-4.5 w-4.5 text-white" />
             </div>
             <div>
               <DialogTitle>Create OKR</DialogTitle>
@@ -468,7 +468,7 @@ function NewOkrDialog({
             <div className="flex items-center justify-between">
               <Label className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Key Results</Label>
               <Button type="button" variant="ghost" size="sm" onClick={addKR} className="text-violet-600 hover:text-emerald-600 h-7 text-xs">
-                <Plus className="h-3 w-3 mr-1" /> Add
+                <TbPlus className="h-3 w-3 mr-1" /> Add
               </Button>
             </div>
             {keyResults.map((kr, i) => (
@@ -500,8 +500,8 @@ function NewOkrDialog({
             className="w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-violet-600 hover:to-purple-700 border-0 shadow-lg shadow-emerald-500/25 text-white"
             disabled={loading}
           >
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            <Sparkles className="mr-2 h-4 w-4" />
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
+            <TbSparkles className="mr-2 h-4 w-4" />
             Create OKR
           </Button>
         </form>

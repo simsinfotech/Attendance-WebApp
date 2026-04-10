@@ -16,7 +16,7 @@ import {
 import { cn } from "@/lib/utils"
 import { NotificationBell } from "./notification-bell"
 import { MobileSidebar } from "./mobile-sidebar"
-import { ArrowLeft, LogOut, Settings, User } from "lucide-react"
+import { TbArrowLeft, TbLogout, TbSettings } from "react-icons/tb"
 
 function getGreeting(): string {
   const hour = new Date().getHours()
@@ -59,7 +59,7 @@ export function Topbar() {
               className="lg:hidden h-9 w-9"
               onClick={() => router.push(isAdmin ? "/overview" : "/my-dashboard")}
             >
-              <ArrowLeft className="h-5 w-5" />
+              <TbArrowLeft className="h-5 w-5" />
             </Button>
           )}
           <div className="hidden sm:block animate-fade-in">
@@ -98,12 +98,12 @@ export function Topbar() {
               </div>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={() => router.push("/settings")}>
-                <Settings className="mr-2 h-4 w-4" />
+                <TbSettings className="mr-2 h-4 w-4" />
                 Settings
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleSignOut}>
-                <LogOut className="mr-2 h-4 w-4" />
+                <TbLogout className="mr-2 h-4 w-4" />
                 Sign Out
               </DropdownMenuItem>
             </DropdownMenuContent>

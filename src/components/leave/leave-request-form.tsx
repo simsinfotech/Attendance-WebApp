@@ -21,7 +21,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import { Loader2, Plus } from "lucide-react"
+import { TbLoader2, TbPlus } from "react-icons/tb"
 import { toast } from "sonner"
 import type { LeaveBalance } from "@/types"
 
@@ -95,7 +95,7 @@ export function LeaveRequestForm({ balance, onSuccess }: LeaveRequestFormProps) 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button />}>
-        <Plus className="mr-2 h-4 w-4" />
+        <TbPlus className="mr-2 h-4 w-4" />
         Request Leave
       </DialogTrigger>
       <DialogContent>
@@ -153,7 +153,7 @@ export function LeaveRequestForm({ balance, onSuccess }: LeaveRequestFormProps) 
             />
           </div>
           <Button type="submit" className="w-full" disabled={loading}>
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit Request
           </Button>
         </form>

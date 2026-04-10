@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Loader2, Shield, Mail, Lock, ArrowRight, Sparkles, Eye, EyeOff } from "lucide-react"
+import { TbLoader2, TbShield, TbMail, TbLock, TbArrowRight, TbSparkles, TbEye, TbEyeOff } from "react-icons/tb"
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -133,7 +133,7 @@ export default function LoginPage() {
                 {resetSent ? (
                   <div className="space-y-4">
                     <div className="flex items-center gap-2 p-4 rounded-lg bg-emerald-50 border border-emerald-200">
-                      <Mail className="h-5 w-5 text-emerald-600 shrink-0" />
+                      <TbMail className="h-5 w-5 text-emerald-600 shrink-0" />
                       <p className="text-sm text-emerald-700">
                         Reset link sent! Check your email inbox.
                       </p>
@@ -157,7 +157,7 @@ export default function LoginPage() {
                           ? "border-emerald-500/50 bg-emerald-500/5 shadow-[0_0_20px_rgba(16,185,129,0.1)]"
                           : "border-gray-200 bg-gray-50 hover:border-gray-300"
                       }`}>
-                        <Mail className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
+                        <TbMail className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
                           focused === "reset-email" ? "text-emerald-600" : "text-gray-400"
                         }`} />
                         <input
@@ -186,9 +186,9 @@ export default function LoginPage() {
                       className="w-full h-12 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 shadow-lg shadow-emerald-500/20 border-0 text-sm font-medium transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/30 rounded-xl"
                     >
                       {resetLoading ? (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />
                       ) : (
-                        <Mail className="mr-2 h-4 w-4" />
+                        <TbMail className="mr-2 h-4 w-4" />
                       )}
                       {resetLoading ? "Sending..." : "Send Reset Link"}
                     </Button>
@@ -215,7 +215,7 @@ export default function LoginPage() {
                     ? "border-emerald-500/50 bg-emerald-500/5 shadow-[0_0_20px_rgba(16,185,129,0.1)]"
                     : "border-gray-200 bg-gray-50 hover:border-gray-300"
                 }`}>
-                  <Mail className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
+                  <TbMail className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
                     focused === "email" ? "text-emerald-600" : "text-gray-400"
                   }`} />
                   <input
@@ -250,7 +250,7 @@ export default function LoginPage() {
                     ? "border-emerald-500/50 bg-emerald-500/5 shadow-[0_0_20px_rgba(16,185,129,0.1)]"
                     : "border-gray-200 bg-gray-50 hover:border-gray-300"
                 }`}>
-                  <Lock className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
+                  <TbLock className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
                     focused === "password" ? "text-emerald-600" : "text-gray-400"
                   }`} />
                   <input
@@ -268,7 +268,7 @@ export default function LoginPage() {
                     onClick={() => setShowPassword(!showPassword)}
                     className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                   >
-                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                    {showPassword ? <TbEyeOff className="h-4 w-4" /> : <TbEye className="h-4 w-4" />}
                   </button>
                 </div>
               </div>
@@ -288,9 +288,9 @@ export default function LoginPage() {
                 className="w-full h-12 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 shadow-lg shadow-emerald-500/20 border-0 text-sm font-medium transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/30 rounded-xl"
               >
                 {loading ? (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />
                 ) : (
-                  <ArrowRight className="mr-2 h-4 w-4" />
+                  <TbArrowRight className="mr-2 h-4 w-4" />
                 )}
                 {loading ? "Signing in..." : "Sign In"}
               </Button>
@@ -301,7 +301,7 @@ export default function LoginPage() {
           {/* Bottom section */}
           <div className="px-8 py-4 border-t border-gray-200 bg-gray-50">
             <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
-              <Sparkles className="h-3 w-3" />
+              <TbSparkles className="h-3 w-3" />
               <span>Secure HR Management Platform</span>
             </div>
           </div>

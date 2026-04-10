@@ -26,7 +26,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Plus, Loader2, Star, MessageSquare, Send, Eye, EyeOff, TrendingUp, ArrowUpRight, UserCircle } from "lucide-react"
+import { TbPlus, TbLoader2, TbStar, TbMessage, TbSend, TbEye, TbEyeOff, TbTrendingUp, TbArrowUpRight, TbUserCircle } from "react-icons/tb"
 import { toast } from "sonner"
 import { formatDistanceToNow } from "date-fns"
 import type { Feedback, Employee } from "@/types"
@@ -63,7 +63,7 @@ function StarRating({
               !readonly ? "hover:scale-125 cursor-pointer" : "cursor-default"
             }`}
           >
-            <Star
+            <TbStar
               className={`${iconSize} transition-all duration-200 ${
                 filled
                   ? "text-amber-600 fill-amber-500 drop-shadow-[0_0_6px_rgba(251,191,36,0.5)]"
@@ -121,7 +121,7 @@ export default function FeedbackPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-rose-600 shadow-lg shadow-pink-500/25">
-            <MessageSquare className="h-6 w-6 text-white" />
+            <TbMessage className="h-6 w-6 text-white" />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight">360 Feedback</h1>
@@ -195,7 +195,7 @@ function EmptyFeedback({ message, description }: { message: string; description:
   return (
     <GlassCard className="flex flex-col items-center justify-center py-16 text-center">
       <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-pink-100 to-rose-100 mb-4">
-        <MessageSquare className="h-8 w-8 text-pink-600" />
+        <TbMessage className="h-8 w-8 text-pink-600" />
       </div>
       <h3 className="text-lg font-semibold mb-1">{message}</h3>
       <p className="text-sm text-muted-foreground max-w-sm">{description}</p>
@@ -226,9 +226,9 @@ function FeedbackCard({
               : "bg-gradient-to-br from-pink-50 to-rose-50"
           }`}>
             {isAnonymous ? (
-              <EyeOff className="h-4.5 w-4.5 text-muted-foreground" />
+              <TbEyeOff className="h-4.5 w-4.5 text-muted-foreground" />
             ) : (
-              <UserCircle className="h-5 w-5 text-pink-600" />
+              <TbUserCircle className="h-5 w-5 text-pink-600" />
             )}
           </div>
           <div>
@@ -255,7 +255,7 @@ function FeedbackCard({
         {feedback.strengths && (
           <div className="rounded-xl bg-emerald-50 border border-emerald-100 p-3.5">
             <div className="flex items-center gap-2 mb-2">
-              <TrendingUp className="h-3.5 w-3.5 text-emerald-600" />
+              <TbTrendingUp className="h-3.5 w-3.5 text-emerald-600" />
               <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-600">Strengths</span>
             </div>
             <p className="text-sm text-emerald-700 leading-relaxed">{feedback.strengths}</p>
@@ -264,7 +264,7 @@ function FeedbackCard({
         {feedback.improvements && (
           <div className="rounded-xl bg-orange-50 border border-orange-200 p-3.5">
             <div className="flex items-center gap-2 mb-2">
-              <ArrowUpRight className="h-3.5 w-3.5 text-orange-600" />
+              <TbArrowUpRight className="h-3.5 w-3.5 text-orange-600" />
               <span className="text-[11px] font-semibold uppercase tracking-wider text-orange-600">Growth Areas</span>
             </div>
             <p className="text-sm text-orange-700 leading-relaxed">{feedback.improvements}</p>
@@ -337,14 +337,14 @@ function NewFeedbackDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button className="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 border-0 shadow-lg shadow-pink-500/25 text-white" />}>
-        <Plus className="mr-2 h-4 w-4" />
+        <TbPlus className="mr-2 h-4 w-4" />
         Give Feedback
       </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-600">
-              <MessageSquare className="h-4.5 w-4.5 text-white" />
+              <TbMessage className="h-4.5 w-4.5 text-white" />
             </div>
             <div>
               <DialogTitle>Give Feedback</DialogTitle>
@@ -419,9 +419,9 @@ function NewFeedbackDialog({
           <div className="flex items-center justify-between rounded-xl bg-gray-50 border border-gray-200 p-3.5">
             <div className="flex items-center gap-3">
               {isAnonymous ? (
-                <EyeOff className="h-4 w-4 text-muted-foreground" />
+                <TbEyeOff className="h-4 w-4 text-muted-foreground" />
               ) : (
-                <Eye className="h-4 w-4 text-muted-foreground" />
+                <TbEye className="h-4 w-4 text-muted-foreground" />
               )}
               <div>
                 <p className="text-sm font-medium">Anonymous feedback</p>
@@ -437,9 +437,9 @@ function NewFeedbackDialog({
             disabled={loading || !rating}
           >
             {loading ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              <Send className="mr-2 h-4 w-4" />
+              <TbSend className="mr-2 h-4 w-4" />
             )}
             Submit Feedback
           </Button>

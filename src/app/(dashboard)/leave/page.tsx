@@ -20,19 +20,19 @@ import {
 } from "@/components/ui/table"
 import { format } from "date-fns"
 import {
-  CalendarHeart,
-  Palmtree,
-  Stethoscope,
-  Award,
-  Clock,
-  CheckCircle2,
-  XCircle,
-  Inbox,
-  ListChecks,
-  Users,
-  CalendarRange,
-  FileText,
-} from "lucide-react"
+  TbCalendarHeart,
+  TbBeach,
+  TbStethoscope,
+  TbAward,
+  TbClock,
+  TbCircleCheck,
+  TbCircleX,
+  TbInbox,
+  TbListCheck,
+  TbUsers,
+  TbCalendarTime,
+  TbFileText,
+} from "react-icons/tb"
 import type { LeaveBalance, LeaveRequest } from "@/types"
 
 export default function LeavePage() {
@@ -100,7 +100,7 @@ export default function LeavePage() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/25">
-            <CalendarHeart className="h-5 w-5 text-white" />
+            <TbCalendarHeart className="h-5 w-5 text-white" />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Leave Management</h1>
@@ -117,21 +117,21 @@ export default function LeavePage() {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <BalanceCard
             label="Casual Leave"
-            icon={<Palmtree className="h-5 w-5" />}
+            icon={<TbBeach className="h-5 w-5" />}
             used={balance.casual_used}
             total={balance.casual_total}
             color="blue"
           />
           <BalanceCard
             label="Sick Leave"
-            icon={<Stethoscope className="h-5 w-5" />}
+            icon={<TbStethoscope className="h-5 w-5" />}
             used={balance.sick_used}
             total={balance.sick_total}
             color="orange"
           />
           <BalanceCard
             label="Earned Leave"
-            icon={<Award className="h-5 w-5" />}
+            icon={<TbAward className="h-5 w-5" />}
             used={balance.earned_used}
             total={balance.earned_total}
             color="green"
@@ -148,7 +148,7 @@ export default function LeavePage() {
                 value="pending"
                 className="gap-1.5 rounded-full px-4 text-xs data-active:bg-gradient-to-r data-active:from-emerald-500/20 data-active:to-teal-500/20 data-active:text-foreground data-active:shadow-none"
               >
-                <Inbox className="h-3.5 w-3.5" />
+                <TbInbox className="h-3.5 w-3.5" />
                 Pending
                 {pending.length > 0 && (
                   <span className="ml-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-amber-500/20 px-1.5 text-[10px] font-bold text-amber-600">
@@ -160,14 +160,14 @@ export default function LeavePage() {
                 value="all"
                 className="gap-1.5 rounded-full px-4 text-xs data-active:bg-gradient-to-r data-active:from-emerald-500/20 data-active:to-teal-500/20 data-active:text-foreground data-active:shadow-none"
               >
-                <ListChecks className="h-3.5 w-3.5" />
+                <TbListCheck className="h-3.5 w-3.5" />
                 All Requests
               </TabsTrigger>
               <TabsTrigger
                 value="balances"
                 className="gap-1.5 rounded-full px-4 text-xs data-active:bg-gradient-to-r data-active:from-emerald-500/20 data-active:to-teal-500/20 data-active:text-foreground data-active:shadow-none"
               >
-                <Users className="h-3.5 w-3.5" />
+                <TbUsers className="h-3.5 w-3.5" />
                 Balances
               </TabsTrigger>
             </>
@@ -177,7 +177,7 @@ export default function LeavePage() {
               value="history"
               className="gap-1.5 rounded-full px-4 text-xs data-active:bg-gradient-to-r data-active:from-emerald-500/20 data-active:to-teal-500/20 data-active:text-foreground data-active:shadow-none"
             >
-              <CalendarRange className="h-3.5 w-3.5" />
+              <TbCalendarTime className="h-3.5 w-3.5" />
               My Requests
             </TabsTrigger>
           )}
@@ -447,7 +447,7 @@ function PendingCard({
 
       {/* Date range */}
       <div className="mt-4 flex items-center gap-2 text-sm">
-        <CalendarRange className="h-4 w-4 text-muted-foreground" />
+        <TbCalendarTime className="h-4 w-4 text-muted-foreground" />
         <span>
           {format(new Date(request.start_date), "MMM d")} &mdash; {format(new Date(request.end_date), "MMM d, yyyy")}
         </span>
@@ -459,7 +459,7 @@ function PendingCard({
       {/* Reason */}
       {request.reason && (
         <div className="mt-3 flex items-start gap-2">
-          <FileText className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-muted-foreground" />
+          <TbFileText className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-muted-foreground" />
           <p className="text-xs leading-relaxed text-muted-foreground line-clamp-2">
             {request.reason}
           </p>
@@ -490,17 +490,17 @@ function RequestsTable({
 }) {
   const statusConfig: Record<string, { icon: React.ReactNode; color: string; bg: string }> = {
     pending: {
-      icon: <Clock className="h-3 w-3" />,
+      icon: <TbClock className="h-3 w-3" />,
       color: "text-amber-600",
       bg: "bg-amber-50 border-amber-500/25",
     },
     approved: {
-      icon: <CheckCircle2 className="h-3 w-3" />,
+      icon: <TbCircleCheck className="h-3 w-3" />,
       color: "text-emerald-600",
       bg: "bg-emerald-50 border-emerald-500/25",
     },
     rejected: {
-      icon: <XCircle className="h-3 w-3" />,
+      icon: <TbCircleX className="h-3 w-3" />,
       color: "text-red-600",
       bg: "bg-red-50 border-red-500/25",
     },
@@ -583,7 +583,7 @@ function LeaveEmptyState({ message }: { message?: string }) {
   return (
     <GlassCard className="flex flex-col items-center justify-center py-16 text-center">
       <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/10 mb-4">
-        <CalendarHeart className="h-7 w-7 text-emerald-600" />
+        <TbCalendarHeart className="h-7 w-7 text-emerald-600" />
       </div>
       <h3 className="text-base font-semibold text-foreground">Nothing here yet</h3>
       <p className="mt-1 max-w-xs text-sm text-muted-foreground">

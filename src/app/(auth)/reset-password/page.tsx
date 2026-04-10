@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
-import { Loader2, Lock, Eye, EyeOff, CheckCircle2, Sparkles } from "lucide-react"
+import { TbLoader2, TbLock, TbEye, TbEyeOff, TbCircleCheck, TbSparkles } from "react-icons/tb"
 
 export default function ResetPasswordPage() {
   const [password, setPassword] = useState("")
@@ -140,7 +140,7 @@ export default function ResetPasswordPage() {
               <div className="space-y-5 text-center">
                 <div className="flex justify-center">
                   <div className="h-16 w-16 rounded-full bg-red-50 flex items-center justify-center">
-                    <Lock className="h-8 w-8 text-red-600" />
+                    <TbLock className="h-8 w-8 text-red-600" />
                   </div>
                 </div>
                 <div>
@@ -158,7 +158,7 @@ export default function ResetPasswordPage() {
               <div className="space-y-5 text-center">
                 <div className="flex justify-center">
                   <div className="h-16 w-16 rounded-full bg-emerald-50 flex items-center justify-center">
-                    <CheckCircle2 className="h-8 w-8 text-emerald-600" />
+                    <TbCircleCheck className="h-8 w-8 text-emerald-600" />
                   </div>
                 </div>
                 <div>
@@ -170,7 +170,7 @@ export default function ResetPasswordPage() {
               </div>
             ) : !sessionReady ? (
               <div className="flex flex-col items-center justify-center py-10 gap-3">
-                <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+                <TbLoader2 className="h-8 w-8 animate-spin text-emerald-600" />
                 <p className="text-sm text-gray-500">Verifying your reset link...</p>
               </div>
             ) : (
@@ -190,7 +190,7 @@ export default function ResetPasswordPage() {
                       ? "border-emerald-500/50 bg-emerald-500/5 shadow-[0_0_20px_rgba(16,185,129,0.1)]"
                       : "border-gray-200 bg-gray-50 hover:border-gray-300"
                   }`}>
-                    <Lock className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
+                    <TbLock className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
                       focused === "password" ? "text-emerald-600" : "text-gray-400"
                     }`} />
                     <input
@@ -209,7 +209,7 @@ export default function ResetPasswordPage() {
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                     >
-                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {showPassword ? <TbEyeOff className="h-4 w-4" /> : <TbEye className="h-4 w-4" />}
                     </button>
                   </div>
                 </div>
@@ -224,7 +224,7 @@ export default function ResetPasswordPage() {
                       ? "border-emerald-500/50 bg-emerald-500/5 shadow-[0_0_20px_rgba(16,185,129,0.1)]"
                       : "border-gray-200 bg-gray-50 hover:border-gray-300"
                   }`}>
-                    <Lock className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
+                    <TbLock className={`absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 transition-colors ${
                       focused === "confirm" ? "text-emerald-600" : "text-gray-400"
                     }`} />
                     <input
@@ -242,7 +242,7 @@ export default function ResetPasswordPage() {
                       onClick={() => setShowConfirm(!showConfirm)}
                       className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                     >
-                      {showConfirm ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      {showConfirm ? <TbEyeOff className="h-4 w-4" /> : <TbEye className="h-4 w-4" />}
                     </button>
                   </div>
                 </div>
@@ -260,9 +260,9 @@ export default function ResetPasswordPage() {
                   className="w-full h-12 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 shadow-lg shadow-emerald-500/20 border-0 text-sm font-medium transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/30 rounded-xl"
                 >
                   {loading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />
                   ) : (
-                    <Lock className="mr-2 h-4 w-4" />
+                    <TbLock className="mr-2 h-4 w-4" />
                   )}
                   {loading ? "Updating..." : "Update Password"}
                 </Button>
@@ -272,7 +272,7 @@ export default function ResetPasswordPage() {
 
           <div className="px-8 py-4 border-t border-gray-200 bg-gray-50">
             <div className="flex items-center justify-center gap-2 text-xs text-gray-400">
-              <Sparkles className="h-3 w-3" />
+              <TbSparkles className="h-3 w-3" />
               <span>Secure HR Management Platform</span>
             </div>
           </div>

@@ -23,27 +23,27 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import {
-  Wallet,
-  TrendingUp,
-  Users,
-  CheckCircle2,
-  Plus,
-  Loader2,
-  CreditCard,
-  ArrowUpRight,
-  ArrowDownRight,
-  IndianRupee,
-  Calendar,
-  Building2,
-  Download,
-  Eye,
-  ChevronRight,
-  Receipt,
-  Banknote,
-  PiggyBank,
-  BadgePercent,
-  Clock,
-} from "lucide-react"
+  TbWallet,
+  TbTrendingUp,
+  TbUsers,
+  TbCircleCheck,
+  TbPlus,
+  TbLoader2,
+  TbCreditCard,
+  TbArrowUpRight,
+  TbArrowDownRight,
+  TbCurrencyRupee,
+  TbCalendar,
+  TbBuilding,
+  TbDownload,
+  TbEye,
+  TbChevronRight,
+  TbReceipt,
+  TbCash,
+  TbPigMoney,
+  TbDiscount,
+  TbClock,
+} from "react-icons/tb"
 import { toast } from "sonner"
 import type { Payroll, Employee } from "@/types"
 
@@ -125,7 +125,7 @@ export default function PayrollPage() {
         <div className="flex flex-col items-center gap-4">
           <div className="relative">
             <div className="w-16 h-16 rounded-full border-2 border-gray-200 border-t-emerald-500 animate-spin" />
-            <Wallet className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-6 w-6 text-emerald-600" />
+            <TbWallet className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-6 w-6 text-emerald-600" />
           </div>
           <p className="text-gray-500 text-sm">Loading payroll...</p>
         </div>
@@ -140,7 +140,7 @@ export default function PayrollPage() {
         <div>
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-              <Wallet className="h-5 w-5 text-white" />
+              <TbWallet className="h-5 w-5 text-white" />
             </div>
             <div>
               <h1 className="text-2xl font-bold tracking-tight">Payroll</h1>
@@ -163,7 +163,7 @@ export default function PayrollPage() {
               className="bg-gray-50 border border-gray-200 hover:bg-gray-100 transition-all"
               onClick={() => toast.info("Razorpay integration required for live payments")}
             >
-              <CreditCard className="mr-2 h-4 w-4" />
+              <TbCreditCard className="mr-2 h-4 w-4" />
               Process Payments
             </Button>
           </div>
@@ -173,7 +173,7 @@ export default function PayrollPage() {
       {/* Month/Year Selector - Pill style */}
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 border border-gray-200">
-          <Calendar className="h-4 w-4 text-emerald-600" />
+          <TbCalendar className="h-4 w-4 text-emerald-600" />
           <Select value={selectedMonth} onValueChange={(v) => v !== null && setSelectedMonth(v)}>
             <SelectTrigger className="border-0 bg-transparent p-0 h-auto w-auto min-w-[100px] shadow-none focus:ring-0">
               <SelectValue />
@@ -204,7 +204,7 @@ export default function PayrollPage() {
             title="Total Payroll"
             value={`₹${totalNet.toLocaleString("en-IN")}`}
             subtitle={`${payrolls.length} employees`}
-            icon={<Wallet className="h-5 w-5" />}
+            icon={<TbWallet className="h-5 w-5" />}
             gradient="from-emerald-500 to-green-600"
             shadowColor="shadow-emerald-500/20"
           />
@@ -212,7 +212,7 @@ export default function PayrollPage() {
             title="Total Earnings"
             value={`₹${totalBasic.toLocaleString("en-IN")}`}
             subtitle="Basic + HRA + Allowances"
-            icon={<TrendingUp className="h-5 w-5" />}
+            icon={<TbTrendingUp className="h-5 w-5" />}
             gradient="from-emerald-500 to-teal-600"
             shadowColor="shadow-emerald-500/20"
             trend="up"
@@ -221,7 +221,7 @@ export default function PayrollPage() {
             title="Deductions"
             value={`₹${totalDeductions.toLocaleString("en-IN")}`}
             subtitle="Tax + PF + Other"
-            icon={<BadgePercent className="h-5 w-5" />}
+            icon={<TbDiscount className="h-5 w-5" />}
             gradient="from-orange-500 to-red-600"
             shadowColor="shadow-orange-500/20"
             trend="down"
@@ -230,7 +230,7 @@ export default function PayrollPage() {
             title="Payment Status"
             value={`${paidCount}/${payrolls.length}`}
             subtitle={pendingCount > 0 ? `${pendingCount} pending` : "All processed"}
-            icon={<CheckCircle2 className="h-5 w-5" />}
+            icon={<TbCircleCheck className="h-5 w-5" />}
             gradient="from-emerald-500 to-green-600"
             shadowColor="shadow-emerald-500/20"
           />
@@ -240,7 +240,7 @@ export default function PayrollPage() {
       {/* Loading state */}
       {loading && (
         <div className="flex justify-center py-12">
-          <Loader2 className="h-8 w-8 text-emerald-600 animate-spin" />
+          <TbLoader2 className="h-8 w-8 text-emerald-600 animate-spin" />
         </div>
       )}
 
@@ -300,7 +300,7 @@ export default function PayrollPage() {
                   </div>
 
                   {/* Arrow */}
-                  <ChevronRight className="h-4 w-4 text-gray-400 group-hover:text-gray-500 transition-colors flex-shrink-0" />
+                  <TbChevronRight className="h-4 w-4 text-gray-400 group-hover:text-gray-500 transition-colors flex-shrink-0" />
                 </div>
               </div>
             ))}
@@ -346,7 +346,7 @@ export default function PayrollPage() {
         <DialogContent className="sm:max-w-lg">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
-              <Receipt className="h-5 w-5 text-emerald-600" />
+              <TbReceipt className="h-5 w-5 text-emerald-600" />
               Payslip Details
             </DialogTitle>
           </DialogHeader>
@@ -385,7 +385,7 @@ function StatCard({
           </div>
           {trend && (
             <div className={`flex items-center gap-1 text-xs ${trend === "up" ? "text-emerald-600" : "text-red-600"}`}>
-              {trend === "up" ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
+              {trend === "up" ? <TbArrowUpRight className="h-3 w-3" /> : <TbArrowDownRight className="h-3 w-3" />}
             </div>
           )}
         </div>
@@ -415,7 +415,7 @@ function PayslipCard({ payroll: p }: { payroll: Payroll }) {
         <div className="relative p-6 flex items-start justify-between">
           <div>
             <div className="flex items-center gap-2">
-              <Receipt className="h-5 w-5 text-emerald-600" />
+              <TbReceipt className="h-5 w-5 text-emerald-600" />
               <h3 className="font-semibold text-lg">Payslip</h3>
             </div>
             <p className="text-gray-500 text-sm mt-1">
@@ -448,9 +448,9 @@ function PayslipCard({ payroll: p }: { payroll: Payroll }) {
             </span>
           </div>
           <div className="space-y-2.5 pl-4">
-            <SalaryRow icon={<Banknote className="h-3.5 w-3.5" />} label="Basic Salary" amount={basicAmount} />
-            <SalaryRow icon={<Building2 className="h-3.5 w-3.5" />} label="HRA" amount={hraAmount} />
-            <SalaryRow icon={<PiggyBank className="h-3.5 w-3.5" />} label="Allowances" amount={allowAmount} />
+            <SalaryRow icon={<TbCash className="h-3.5 w-3.5" />} label="Basic Salary" amount={basicAmount} />
+            <SalaryRow icon={<TbBuilding className="h-3.5 w-3.5" />} label="HRA" amount={hraAmount} />
+            <SalaryRow icon={<TbPigMoney className="h-3.5 w-3.5" />} label="Allowances" amount={allowAmount} />
           </div>
         </div>
 
@@ -467,7 +467,7 @@ function PayslipCard({ payroll: p }: { payroll: Payroll }) {
             </span>
           </div>
           <div className="pl-4">
-            <SalaryRow icon={<BadgePercent className="h-3.5 w-3.5" />} label="Total Deductions" amount={deductAmount} isDeduction />
+            <SalaryRow icon={<TbDiscount className="h-3.5 w-3.5" />} label="Total Deductions" amount={deductAmount} isDeduction />
           </div>
         </div>
 
@@ -557,7 +557,7 @@ function PayslipDetail({ payroll: p }: { payroll: Payroll }) {
 
       {/* Period info */}
       <div className="flex items-center gap-2 text-xs text-gray-400">
-        <Clock className="h-3 w-3" />
+        <TbClock className="h-3 w-3" />
         <span>Pay period: {MONTHS[p.month - 1]} 1 — {MONTHS[p.month - 1]} {new Date(p.year, p.month, 0).getDate()}, {p.year}</span>
       </div>
     </div>
@@ -594,9 +594,9 @@ function PayrollStatusBadge({ status, large }: { status: string; large?: boolean
   }
 
   const icons: Record<string, React.ReactNode> = {
-    draft: <Clock className="h-3 w-3" />,
-    pending: <Loader2 className="h-3 w-3" />,
-    paid: <CheckCircle2 className="h-3 w-3" />,
+    draft: <TbClock className="h-3 w-3" />,
+    pending: <TbLoader2 className="h-3 w-3" />,
+    paid: <TbCircleCheck className="h-3 w-3" />,
   }
 
   return (
@@ -621,10 +621,10 @@ function EmptyState({
     <div className="flex flex-col items-center justify-center py-20 text-center">
       <div className="relative mb-6">
         <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-white/[0.04] to-white/[0.01] border border-gray-200 flex items-center justify-center">
-          <Wallet className="h-8 w-8 text-gray-400" />
+          <TbWallet className="h-8 w-8 text-gray-400" />
         </div>
         <div className="absolute -bottom-1 -right-1 w-6 h-6 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center">
-          <IndianRupee className="h-3 w-3 text-gray-400" />
+          <TbCurrencyRupee className="h-3 w-3 text-gray-400" />
         </div>
       </div>
       <h3 className="font-semibold text-lg">{title}</h3>
@@ -705,14 +705,14 @@ function RunPayrollDialog({
       <DialogTrigger render={
         <Button className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 shadow-lg shadow-emerald-500/20 border-0" />
       }>
-        <Plus className="mr-2 h-4 w-4" />
+        <TbPlus className="mr-2 h-4 w-4" />
         Add Payroll
       </DialogTrigger>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center">
-              <Plus className="h-4 w-4 text-white" />
+              <TbPlus className="h-4 w-4 text-white" />
             </div>
             Add Payroll — {MONTHS[month - 1]} {year}
           </DialogTitle>
@@ -768,9 +768,9 @@ function RunPayrollDialog({
             disabled={saving || !employeeId || !basic}
           >
             {saving ? (
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              <CheckCircle2 className="mr-2 h-4 w-4" />
+              <TbCircleCheck className="mr-2 h-4 w-4" />
             )}
             Create Payroll Record
           </Button>

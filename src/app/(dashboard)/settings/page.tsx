@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
-import { Loader2, Shield, User, Eye, EyeOff, Clock, Camera, Trash2, Upload, X, ImagePlus, Mail, Briefcase, Building2, CalendarDays } from "lucide-react"
+import { TbLoader2, TbShield, TbUser, TbEye, TbEyeOff, TbClock, TbCamera, TbTrash, TbUpload, TbX, TbPhotoPlus, TbMail, TbBriefcase, TbBuilding, TbCalendarEvent } from "react-icons/tb"
 import { toast } from "sonner"
 import { format } from "date-fns"
 import { OFFICE_TIMINGS } from "@/lib/config"
@@ -181,7 +181,7 @@ export default function SettingsPage() {
                   )}
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 flex items-center justify-center transition-all duration-200">
                     <div className="opacity-0 group-hover:opacity-100 transition-opacity flex flex-col items-center gap-0.5">
-                      <Camera className="h-5 w-5 text-white" />
+                      <TbCamera className="h-5 w-5 text-white" />
                       <span className="text-[10px] text-white font-medium">Change</span>
                     </div>
                   </div>
@@ -201,14 +201,14 @@ export default function SettingsPage() {
               <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                 <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">{employee?.full_name}</h2>
                 <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold ${employee?.is_admin ? "bg-indigo-50 text-indigo-600 ring-1 ring-indigo-200" : "bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200"}`}>
-                  <Shield className="h-3.5 w-3.5" />
+                  <TbShield className="h-3.5 w-3.5" />
                   {employee?.is_admin ? "Admin" : "Employee"}
                 </span>
               </div>
               <p className="text-base text-muted-foreground mt-1">{employee?.designation}{employee?.department ? ` \u00B7 ${employee.department}` : ""}</p>
               {employee?.date_of_joining && (
                 <p className="text-sm text-muted-foreground/70 mt-1 flex items-center gap-1.5">
-                  <CalendarDays className="h-3.5 w-3.5" />
+                  <TbCalendarEvent className="h-3.5 w-3.5" />
                   Joined {format(new Date(employee.date_of_joining), "MMMM yyyy")}
                 </p>
               )}
@@ -219,7 +219,7 @@ export default function SettingsPage() {
           {preview && (
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6 p-4 rounded-xl bg-blue-50 border border-blue-200">
               <div className="flex items-center gap-2 flex-1">
-                <ImagePlus className="h-5 w-5 text-blue-600 shrink-0" />
+                <TbPhotoPlus className="h-5 w-5 text-blue-600 shrink-0" />
                 <p className="text-sm sm:text-base text-blue-700">New photo selected. Upload to save.</p>
               </div>
               <div className="flex gap-2 shrink-0">
@@ -229,11 +229,11 @@ export default function SettingsPage() {
                   disabled={uploading}
                   className={`h-9 px-4 text-sm ${employee?.is_admin ? "bg-indigo-600 hover:bg-indigo-700 text-white border-0" : "bg-emerald-600 hover:bg-emerald-700 text-white border-0"}`}
                 >
-                  {uploading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Upload className="mr-2 h-4 w-4" />}
+                  {uploading ? <TbLoader2 className="mr-2 h-4 w-4 animate-spin" /> : <TbUpload className="mr-2 h-4 w-4" />}
                   Upload
                 </Button>
                 <Button size="sm" variant="outline" onClick={cancelPreview} disabled={uploading} className="h-9 px-4 text-sm">
-                  <X className="mr-1.5 h-4 w-4" />
+                  <TbX className="mr-1.5 h-4 w-4" />
                   Cancel
                 </Button>
               </div>
@@ -248,7 +248,7 @@ export default function SettingsPage() {
                 disabled={uploading}
                 className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-red-600 transition-colors disabled:opacity-50"
               >
-                {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Trash2 className="h-4 w-4" />}
+                {uploading ? <TbLoader2 className="h-4 w-4 animate-spin" /> : <TbTrash className="h-4 w-4" />}
                 Remove photo
               </button>
             </div>
@@ -265,7 +265,7 @@ export default function SettingsPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 pt-5 border-t border-gray-200">
             <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50/80">
               <div className={`flex items-center justify-center h-9 w-9 rounded-lg shrink-0 ${employee?.is_admin ? "bg-indigo-100 text-indigo-600" : "bg-emerald-100 text-emerald-600"}`}>
-                <Mail className="h-4 w-4" />
+                <TbMail className="h-4 w-4" />
               </div>
               <div className="min-w-0">
                 <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Email</p>
@@ -274,7 +274,7 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50/80">
               <div className={`flex items-center justify-center h-9 w-9 rounded-lg shrink-0 ${employee?.is_admin ? "bg-indigo-100 text-indigo-600" : "bg-emerald-100 text-emerald-600"}`}>
-                <Briefcase className="h-4 w-4" />
+                <TbBriefcase className="h-4 w-4" />
               </div>
               <div className="min-w-0">
                 <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Designation</p>
@@ -283,7 +283,7 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50/80">
               <div className={`flex items-center justify-center h-9 w-9 rounded-lg shrink-0 ${employee?.is_admin ? "bg-indigo-100 text-indigo-600" : "bg-emerald-100 text-emerald-600"}`}>
-                <User className="h-4 w-4" />
+                <TbUser className="h-4 w-4" />
               </div>
               <div className="min-w-0">
                 <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Department</p>
@@ -292,7 +292,7 @@ export default function SettingsPage() {
             </div>
             <div className="flex items-center gap-3 p-3 rounded-lg bg-gray-50/80">
               <div className={`flex items-center justify-center h-9 w-9 rounded-lg shrink-0 ${employee?.is_admin ? "bg-indigo-100 text-indigo-600" : "bg-emerald-100 text-emerald-600"}`}>
-                <Building2 className="h-4 w-4" />
+                <TbBuilding className="h-4 w-4" />
               </div>
               <div className="min-w-0">
                 <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">Organization</p>
@@ -307,7 +307,7 @@ export default function SettingsPage() {
       <GlassCard className="space-y-5 p-5 sm:p-6">
         <div className="flex items-center gap-3">
           <div className={`flex items-center justify-center h-10 w-10 rounded-xl ${employee?.is_admin ? "bg-indigo-100 text-indigo-600" : "bg-emerald-100 text-emerald-600"}`}>
-            <Clock className="h-5 w-5" />
+            <TbClock className="h-5 w-5" />
           </div>
           <h3 className="text-lg font-semibold">Office Timings</h3>
         </div>
@@ -335,7 +335,7 @@ export default function SettingsPage() {
       <GlassCard className="space-y-5 p-5 sm:p-6">
         <div className="flex items-center gap-3">
           <div className={`flex items-center justify-center h-10 w-10 rounded-xl ${employee?.is_admin ? "bg-indigo-100 text-indigo-600" : "bg-emerald-100 text-emerald-600"}`}>
-            <Shield className="h-5 w-5" />
+            <TbShield className="h-5 w-5" />
           </div>
           <h3 className="text-lg font-semibold">Security</h3>
         </div>
@@ -355,12 +355,12 @@ export default function SettingsPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
               >
-                {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                {showPassword ? <TbEyeOff className="h-5 w-5" /> : <TbEye className="h-5 w-5" />}
               </button>
             </div>
           </div>
           <Button type="submit" disabled={loading} className="h-11 px-6 text-base">
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Update Password
           </Button>
         </form>

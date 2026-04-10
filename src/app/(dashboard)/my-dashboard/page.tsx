@@ -9,15 +9,15 @@ import { CheckinCard } from "@/components/attendance/checkin-card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
 import {
-  CalendarOff,
-  ListTodo,
-  Megaphone,
-  Loader2,
-  Pin,
-  CheckCircle2,
-  ArrowRight,
-  CircleDot,
-} from "lucide-react"
+  TbCalendarOff,
+  TbChecklist,
+  TbSpeakerphone,
+  TbLoader2,
+  TbPin,
+  TbCircleCheck,
+  TbArrowRight,
+  TbCircleDot,
+} from "react-icons/tb"
 import type { LeaveBalance, Task, Announcement } from "@/types"
 
 export default function MyDashboardPage() {
@@ -93,7 +93,7 @@ export default function MyDashboardPage() {
           <div className="relative">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-orange-500 to-amber-400 flex items-center justify-center shadow-lg shadow-orange-500/20">
-                <CalendarOff className="h-5 w-5 text-white" />
+                <TbCalendarOff className="h-5 w-5 text-white" />
               </div>
               <div>
                 <p className="text-sm font-semibold">Leave Balance</p>
@@ -105,7 +105,7 @@ export default function MyDashboardPage() {
 
             {leaveLoading || isUserLoading ? (
               <div className="flex items-center justify-center py-6">
-                <Loader2 className="h-5 w-5 animate-spin text-muted-foreground/50" />
+                <TbLoader2 className="h-5 w-5 animate-spin text-muted-foreground/50" />
               </div>
             ) : leaveBalance ? (
               <div className="space-y-4">
@@ -133,7 +133,7 @@ export default function MyDashboardPage() {
               </div>
             ) : (
               <div className="flex flex-col items-center py-4 text-muted-foreground/60">
-                <CalendarOff className="h-8 w-8 mb-2 opacity-30" />
+                <TbCalendarOff className="h-8 w-8 mb-2 opacity-30" />
                 <p className="text-xs">No leave balance for {new Date().getFullYear()}</p>
               </div>
             )}
@@ -147,7 +147,7 @@ export default function MyDashboardPage() {
           <div className="relative">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
-                <ListTodo className="h-5 w-5 text-white" />
+                <TbChecklist className="h-5 w-5 text-white" />
               </div>
               <div>
                 <p className="text-sm font-semibold">Active Tasks</p>
@@ -160,7 +160,7 @@ export default function MyDashboardPage() {
             <div className="space-y-2">
               {tasks.length === 0 ? (
                 <div className="flex flex-col items-center py-4 text-muted-foreground/60">
-                  <CheckCircle2 className="h-8 w-8 mb-2 opacity-30" />
+                  <TbCircleCheck className="h-8 w-8 mb-2 opacity-30" />
                   <p className="text-xs">All caught up!</p>
                 </div>
               ) : (
@@ -198,7 +198,7 @@ export default function MyDashboardPage() {
           <div className="relative">
             <div className="flex items-center gap-3 mb-5">
               <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center shadow-lg shadow-purple-500/20">
-                <Megaphone className="h-5 w-5 text-white" />
+                <TbSpeakerphone className="h-5 w-5 text-white" />
               </div>
               <div>
                 <p className="text-sm font-semibold">Announcements</p>
@@ -209,7 +209,7 @@ export default function MyDashboardPage() {
             <div className="space-y-3">
               {announcements.length === 0 ? (
                 <div className="flex flex-col items-center py-4 text-muted-foreground/60">
-                  <Megaphone className="h-8 w-8 mb-2 opacity-30" />
+                  <TbSpeakerphone className="h-8 w-8 mb-2 opacity-30" />
                   <p className="text-xs">No announcements</p>
                 </div>
               ) : (
@@ -230,7 +230,7 @@ export default function MyDashboardPage() {
                     >
                       <div className="flex items-center gap-1.5">
                         {a.is_pinned && (
-                          <Pin className="h-3 w-3 text-amber-600 shrink-0 fill-amber-500" />
+                          <TbPin className="h-3 w-3 text-amber-600 shrink-0 fill-amber-500" />
                         )}
                         <p className="text-sm font-medium truncate">{a.title}</p>
                       </div>

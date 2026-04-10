@@ -24,20 +24,20 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import {
-  Plus,
-  Loader2,
-  Trash2,
-  FileText,
-  Calendar,
-  CheckCircle2,
-  AlertOctagon,
-  Lightbulb,
-  ChevronDown,
-  ChevronUp,
-  User,
-  Inbox,
-  Clock,
-} from "lucide-react"
+  TbPlus,
+  TbLoader2,
+  TbTrash,
+  TbFileText,
+  TbCalendar,
+  TbCircleCheck,
+  TbAlertOctagon,
+  TbBulb,
+  TbChevronDown,
+  TbChevronUp,
+  TbUser,
+  TbInbox,
+  TbClock,
+} from "react-icons/tb"
 import { toast } from "sonner"
 import { format } from "date-fns"
 import type { EodReport, Employee } from "@/types"
@@ -136,12 +136,12 @@ export default function EodReportsPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg shadow-emerald-500/20">
-            <FileText className="h-6 w-6 text-white" />
+            <TbFileText className="h-6 w-6 text-white" />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight">EOD Reports</h1>
             <div className="flex items-center gap-2 mt-0.5">
-              <Calendar className="h-3.5 w-3.5 text-muted-foreground" />
+              <TbCalendar className="h-3.5 w-3.5 text-muted-foreground" />
               <p className="text-sm text-muted-foreground">
                 {format(new Date(), "EEEE, MMMM d, yyyy")}
               </p>
@@ -159,7 +159,7 @@ export default function EodReportsPage() {
       {isAdmin && (
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 rounded-xl border border-gray-200 bg-gray-50 backdrop-blur-md px-4 py-2">
-            <User className="h-4 w-4 text-muted-foreground" />
+            <TbUser className="h-4 w-4 text-muted-foreground" />
             <Select value={selectedEmployee} onValueChange={(v) => v !== null && setSelectedEmployee(v)}>
               <SelectTrigger className="w-[200px] border-0 bg-transparent p-0 h-auto shadow-none focus:ring-0">
                 <SelectValue placeholder="All Employees" />
@@ -182,7 +182,7 @@ export default function EodReportsPage() {
         /* Empty state */
         <div className="flex flex-col items-center justify-center py-20 rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50">
           <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-100 to-teal-100 mb-4">
-            <Inbox className="h-8 w-8 text-teal-500/50" />
+            <TbInbox className="h-8 w-8 text-teal-500/50" />
           </div>
           <p className="text-muted-foreground font-medium mb-1">
             No reports found
@@ -204,7 +204,7 @@ export default function EodReportsPage() {
                 {/* Date header with timeline dot */}
                 <div className="flex items-center gap-4 mb-4">
                   <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-emerald-500 to-teal-500 shadow-lg shadow-emerald-500/20 shrink-0">
-                    <Calendar className="h-4 w-4 text-white" />
+                    <TbCalendar className="h-4 w-4 text-white" />
                   </div>
                   <div className="flex items-center gap-3">
                     <h2 className="text-sm font-semibold">
@@ -245,7 +245,7 @@ export default function EodReportsPage() {
                                 </p>
                               )}
                               <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                                <CheckCircle2 className="h-3 w-3 text-emerald-600" />
+                                <TbCircleCheck className="h-3 w-3 text-emerald-600" />
                                 <span>
                                   {(report.tasks_completed as any[]).length}{" "}
                                   {(report.tasks_completed as any[]).length === 1
@@ -255,7 +255,7 @@ export default function EodReportsPage() {
                                 {report.blockers && (
                                   <>
                                     <span className="text-gray-400">|</span>
-                                    <AlertOctagon className="h-3 w-3 text-red-600" />
+                                    <TbAlertOctagon className="h-3 w-3 text-red-600" />
                                     <span className="text-red-600">Has blockers</span>
                                   </>
                                 )}
@@ -263,11 +263,11 @@ export default function EodReportsPage() {
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <Clock className="h-3.5 w-3.5 text-muted-foreground/40" />
+                            <TbClock className="h-3.5 w-3.5 text-muted-foreground/40" />
                             {isExpanded ? (
-                              <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                              <TbChevronUp className="h-4 w-4 text-muted-foreground" />
                             ) : (
-                              <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                              <TbChevronDown className="h-4 w-4 text-muted-foreground" />
                             )}
                           </div>
                         </button>
@@ -278,7 +278,7 @@ export default function EodReportsPage() {
                             {/* Tasks completed */}
                             <div className="pt-4">
                               <div className="flex items-center gap-2 mb-3">
-                                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                                <TbCircleCheck className="h-4 w-4 text-emerald-600" />
                                 <h4 className="text-xs font-semibold uppercase tracking-wider text-emerald-600">
                                   Tasks Completed
                                 </h4>
@@ -313,7 +313,7 @@ export default function EodReportsPage() {
                             {report.blockers && (
                               <div>
                                 <div className="flex items-center gap-2 mb-2">
-                                  <AlertOctagon className="h-4 w-4 text-red-600" />
+                                  <TbAlertOctagon className="h-4 w-4 text-red-600" />
                                   <h4 className="text-xs font-semibold uppercase tracking-wider text-red-600">
                                     Blockers
                                   </h4>
@@ -330,7 +330,7 @@ export default function EodReportsPage() {
                             {report.tomorrow_plan && (
                               <div>
                                 <div className="flex items-center gap-2 mb-2">
-                                  <Lightbulb className="h-4 w-4 text-emerald-600" />
+                                  <TbBulb className="h-4 w-4 text-emerald-600" />
                                   <h4 className="text-xs font-semibold uppercase tracking-wider text-emerald-600">
                                     Tomorrow&apos;s Plan
                                   </h4>
@@ -424,14 +424,14 @@ function NewEodDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-teal-500 hover:to-cyan-500 text-white shadow-lg shadow-emerald-500/20 border-0" />}>
-        <Plus className="mr-2 h-4 w-4" />
+        <TbPlus className="mr-2 h-4 w-4" />
         Submit EOD
       </DialogTrigger>
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-teal-500">
-              <FileText className="h-4 w-4 text-white" />
+              <TbFileText className="h-4 w-4 text-white" />
             </div>
             <div>
               <DialogTitle className="text-lg">End of Day Report</DialogTitle>
@@ -446,7 +446,7 @@ function NewEodDialog({
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+                <TbCircleCheck className="h-4 w-4 text-emerald-600" />
                 <Label className="text-xs font-semibold uppercase tracking-wider text-emerald-600">
                   Tasks Completed
                 </Label>
@@ -458,7 +458,7 @@ function NewEodDialog({
                 onClick={addTask}
                 className="h-7 text-xs text-teal-600 hover:text-emerald-600 hover:bg-emerald-50"
               >
-                <Plus className="h-3 w-3 mr-1" />
+                <TbPlus className="h-3 w-3 mr-1" />
                 Add Task
               </Button>
             </div>
@@ -495,7 +495,7 @@ function NewEodDialog({
                       onClick={() => removeTask(i)}
                       className="shrink-0 h-8 w-8 text-muted-foreground hover:text-red-600 hover:bg-red-50"
                     >
-                      <Trash2 className="h-3.5 w-3.5" />
+                      <TbTrash className="h-3.5 w-3.5" />
                     </Button>
                   )}
                 </div>
@@ -506,7 +506,7 @@ function NewEodDialog({
           {/* Blockers section */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <AlertOctagon className="h-4 w-4 text-red-600" />
+              <TbAlertOctagon className="h-4 w-4 text-red-600" />
               <Label className="text-xs font-semibold uppercase tracking-wider text-red-600">
                 Blockers
               </Label>
@@ -523,7 +523,7 @@ function NewEodDialog({
           {/* Tomorrow's plan section */}
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <Lightbulb className="h-4 w-4 text-emerald-600" />
+              <TbBulb className="h-4 w-4 text-emerald-600" />
               <Label className="text-xs font-semibold uppercase tracking-wider text-emerald-600">
                 Tomorrow&apos;s Plan
               </Label>
@@ -542,7 +542,7 @@ function NewEodDialog({
             className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-teal-500 hover:to-cyan-500 text-white shadow-lg shadow-emerald-500/20 border-0 h-11 font-medium"
             disabled={loading}
           >
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Submit Report
           </Button>
         </form>

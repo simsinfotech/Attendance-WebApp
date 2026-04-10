@@ -24,21 +24,21 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import {
-  Plus,
-  Loader2,
-  ClipboardList,
-  Calendar,
-  ArrowRight,
-  ArrowLeft,
-  CheckCircle2,
-  Circle,
-  Clock,
-  User,
-  AlertTriangle,
-  Inbox,
-  Pencil,
-  Trash2,
-} from "lucide-react"
+  TbPlus,
+  TbLoader2,
+  TbClipboardList,
+  TbCalendar,
+  TbArrowRight,
+  TbArrowLeft,
+  TbCircleCheck,
+  TbCircle,
+  TbClock,
+  TbUser,
+  TbAlertTriangle,
+  TbInbox,
+  TbPencil,
+  TbTrash,
+} from "react-icons/tb"
 import { toast } from "sonner"
 import { format } from "date-fns"
 import type { Task, Employee } from "@/types"
@@ -52,7 +52,7 @@ const COLUMNS = [
     headerBg: "bg-slate-500/10",
     borderColor: "border-slate-500/20",
     badgeBg: "bg-slate-500/20 text-slate-300",
-    icon: Circle,
+    icon: TbCircle,
   },
   {
     id: "in_progress",
@@ -62,7 +62,7 @@ const COLUMNS = [
     headerBg: "bg-emerald-50",
     borderColor: "border-emerald-200",
     badgeBg: "bg-emerald-50 text-emerald-600",
-    icon: Clock,
+    icon: TbClock,
   },
   {
     id: "done",
@@ -72,7 +72,7 @@ const COLUMNS = [
     headerBg: "bg-emerald-50",
     borderColor: "border-emerald-200",
     badgeBg: "bg-emerald-50 text-emerald-300",
-    icon: CheckCircle2,
+    icon: TbCircleCheck,
   },
 ] as const
 
@@ -164,7 +164,7 @@ export default function TasksPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-green-600 shadow-lg shadow-emerald-500/20">
-            <ClipboardList className="h-6 w-6 text-white" />
+            <TbClipboardList className="h-6 w-6 text-white" />
           </div>
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Tasks</h1>
@@ -223,7 +223,7 @@ export default function TasksPage() {
                         className={`shrink-0 inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${PRIORITY_BADGE[task.priority]}`}
                       >
                         {task.priority === "urgent" && (
-                          <AlertTriangle className="h-3 w-3 mr-1" />
+                          <TbAlertTriangle className="h-3 w-3 mr-1" />
                         )}
                         {task.priority}
                       </span>
@@ -252,7 +252,7 @@ export default function TasksPage() {
                       )}
                       {task.due_date && (
                         <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                          <Calendar className="h-3 w-3" />
+                          <TbCalendar className="h-3 w-3" />
                           <span>{format(new Date(task.due_date), "MMM d")}</span>
                         </div>
                       )}
@@ -286,7 +286,7 @@ export default function TasksPage() {
                           }
                           className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium text-muted-foreground hover:text-gray-900 hover:bg-gray-100 transition-colors"
                         >
-                          <ArrowLeft className="h-3 w-3" />
+                          <TbArrowLeft className="h-3 w-3" />
                           {col.id === "done" ? "In Progress" : "To Do"}
                         </button>
                       )}
@@ -301,7 +301,7 @@ export default function TasksPage() {
                           className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium text-muted-foreground hover:text-gray-900 hover:bg-gray-100 transition-colors ml-auto"
                         >
                           {col.id === "todo" ? "In Progress" : "Done"}
-                          <ArrowRight className="h-3 w-3" />
+                          <TbArrowRight className="h-3 w-3" />
                         </button>
                       )}
                     </div>
@@ -311,7 +311,7 @@ export default function TasksPage() {
                 {/* Empty state */}
                 {colTasks.length === 0 && (
                   <div className="flex flex-col items-center justify-center py-10 rounded-lg border-2 border-dashed border-gray-200">
-                    <Inbox className="h-8 w-8 text-gray-200 mb-2" />
+                    <TbInbox className="h-8 w-8 text-gray-200 mb-2" />
                     <p className="text-xs text-muted-foreground/60">No tasks</p>
                   </div>
                 )}
@@ -395,13 +395,13 @@ function EditTaskDialog({
       <DialogTrigger render={
         <button className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium text-muted-foreground hover:text-gray-900 hover:bg-gray-100 transition-colors" />
       }>
-        <Pencil className="h-3 w-3" />
+        <TbPencil className="h-3 w-3" />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-green-600">
-              <Pencil className="h-4 w-4 text-white" />
+              <TbPencil className="h-4 w-4 text-white" />
             </div>
             <DialogTitle className="text-lg">Edit Task</DialogTitle>
           </div>
@@ -449,7 +449,7 @@ function EditTaskDialog({
             <Input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} className="bg-gray-50 border-gray-200" />
           </div>
           <Button type="submit" className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-violet-500 hover:to-purple-500 text-white shadow-lg shadow-emerald-500/20 border-0 h-11 font-medium" disabled={loading}>
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Save Changes
           </Button>
         </form>
@@ -489,7 +489,7 @@ function DeleteTaskButton({
       <DialogTrigger render={
         <button className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-medium text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors" />
       }>
-        <Trash2 className="h-3 w-3" />
+        <TbTrash className="h-3 w-3" />
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -504,7 +504,7 @@ function DeleteTaskButton({
               Cancel
             </Button>
             <Button variant="destructive" onClick={handleDelete} disabled={loading} className="flex-1">
-              {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
               Delete
             </Button>
           </div>
@@ -572,14 +572,14 @@ function NewTaskDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger render={<Button className="bg-gradient-to-r from-emerald-600 to-green-600 hover:from-violet-500 hover:to-purple-500 text-white shadow-lg shadow-emerald-500/20 border-0" />}>
-        <Plus className="mr-2 h-4 w-4" />
+        <TbPlus className="mr-2 h-4 w-4" />
         Add Task
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-emerald-500 to-green-600">
-              <ClipboardList className="h-4 w-4 text-white" />
+              <TbClipboardList className="h-4 w-4 text-white" />
             </div>
             <DialogTitle className="text-lg">Create New Task</DialogTitle>
           </div>
@@ -660,7 +660,7 @@ function NewTaskDialog({
             className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-violet-500 hover:to-purple-500 text-white shadow-lg shadow-emerald-500/20 border-0 h-11 font-medium"
             disabled={loading}
           >
-            {loading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {loading && <TbLoader2 className="mr-2 h-4 w-4 animate-spin" />}
             Create Task
           </Button>
         </form>

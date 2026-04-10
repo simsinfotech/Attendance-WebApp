@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { Building2 } from "lucide-react"
+import { TbBuilding } from "react-icons/tb"
 
 const ORGS = [
   { id: "ORG-001", name: "SimsInfotech" },
@@ -35,7 +35,7 @@ export function OrgSwitcher() {
     <Select value={selectedOrg} onValueChange={handleChange}>
       <SelectTrigger className="bg-gray-50 border-gray-200 h-9 text-xs">
         <div className="flex items-center gap-2">
-          <Building2 className="h-3.5 w-3.5 text-muted-foreground" />
+          <TbBuilding className="h-3.5 w-3.5 text-muted-foreground" />
           <SelectValue />
         </div>
       </SelectTrigger>

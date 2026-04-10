@@ -9,18 +9,18 @@ import { PageHeader } from "@/components/shared/page-header"
 import { GpsMap } from "@/components/attendance/gps-map"
 import { Badge } from "@/components/ui/badge"
 import {
-  Users,
-  Clock,
-  CalendarOff,
-  CreditCard,
-  Megaphone,
-  MapPin,
-  Pin,
-  TrendingUp,
-  UserCheck,
-  AlertCircle,
-  Coffee,
-} from "lucide-react"
+  TbUsers,
+  TbClock,
+  TbCalendarOff,
+  TbCreditCard,
+  TbSpeakerphone,
+  TbMapPin,
+  TbPin,
+  TbTrendingUp,
+  TbUserCheck,
+  TbAlertCircle,
+  TbCoffee,
+} from "react-icons/tb"
 import { format } from "date-fns"
 import type { Attendance, Employee, Announcement } from "@/types"
 
@@ -155,7 +155,7 @@ export default function OverviewPage() {
       {/* ── Stat Cards ── */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         <StatCard
-          icon={Users}
+          icon={TbUsers}
           label="Team Headcount"
           value={employees.length}
           subtitle="Active employees"
@@ -165,7 +165,7 @@ export default function OverviewPage() {
           href="/team"
         />
         <StatCard
-          icon={UserCheck}
+          icon={TbUserCheck}
           label="Checked-In Today"
           value={checkedInCount}
           subtitle={employees.length > 0 ? `${Math.round((checkedInCount / employees.length) * 100)}% of team` : "No employees"}
@@ -175,7 +175,7 @@ export default function OverviewPage() {
           href="/attendance"
         />
         <StatCard
-          icon={CalendarOff}
+          icon={TbCalendarOff}
           label="Pending Leaves"
           value={pendingLeaves}
           subtitle="Awaiting approval"
@@ -185,7 +185,7 @@ export default function OverviewPage() {
           href="/leave"
         />
         <StatCard
-          icon={CreditCard}
+          icon={TbCreditCard}
           label="Payroll Status"
           value={`${payrollSummary.paid}/${payrollSummary.total}`}
           subtitle="Processed this month"
@@ -204,7 +204,7 @@ export default function OverviewPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center">
-                  <Clock className="h-4 w-4 text-white" />
+                  <TbClock className="h-4 w-4 text-white" />
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold">Today&apos;s Check-ins</h3>
@@ -221,7 +221,7 @@ export default function OverviewPage() {
             {todayAttendance.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-16 text-muted-foreground">
                 <div className="w-16 h-16 rounded-full bg-gray-50 flex items-center justify-center mb-4">
-                  <Coffee className="h-7 w-7 text-muted-foreground/50" />
+                  <TbCoffee className="h-7 w-7 text-muted-foreground/50" />
                 </div>
                 <p className="text-sm font-medium">No check-ins yet today</p>
                 <p className="text-xs mt-1 text-muted-foreground/70">Employees will appear here when they check in</p>
@@ -257,14 +257,14 @@ export default function OverviewPage() {
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium truncate">{a.employee?.full_name}</p>
                         <div className="flex items-center gap-2 mt-0.5">
-                          <Clock className="h-3 w-3 text-muted-foreground/60" />
+                          <TbClock className="h-3 w-3 text-muted-foreground/60" />
                           <span className="text-xs text-muted-foreground">
                             {format(new Date(a.check_in), "hh:mm a")}
                           </span>
                           {a.check_in_address && (
                             <>
                               <span className="text-muted-foreground/30">|</span>
-                              <MapPin className="h-3 w-3 text-muted-foreground/60" />
+                              <TbMapPin className="h-3 w-3 text-muted-foreground/60" />
                               <span className="text-xs text-muted-foreground truncate max-w-[120px]">
                                 {a.check_in_address}
                               </span>
@@ -288,7 +288,7 @@ export default function OverviewPage() {
           <div className="px-6 pt-5 pb-4 border-b border-gray-100 bg-gradient-to-r from-emerald-500/5 to-green-500/5">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center">
-                <MapPin className="h-4 w-4 text-white" />
+                <TbMapPin className="h-4 w-4 text-white" />
               </div>
               <div>
                 <h3 className="text-sm font-semibold">Field Locations</h3>
@@ -305,7 +305,7 @@ export default function OverviewPage() {
         <div>
           <div className="flex items-center gap-3 mb-4">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-400 flex items-center justify-center">
-              <Megaphone className="h-4 w-4 text-white" />
+              <TbSpeakerphone className="h-4 w-4 text-white" />
             </div>
             <h3 className="text-base font-semibold">Announcements</h3>
           </div>
@@ -337,7 +337,7 @@ export default function OverviewPage() {
                   <div className="flex items-start justify-between gap-2 mb-2">
                     <div className="flex items-center gap-2 min-w-0">
                       {a.is_pinned && (
-                        <Pin className="h-3.5 w-3.5 text-amber-600 shrink-0 fill-amber-500" />
+                        <TbPin className="h-3.5 w-3.5 text-amber-600 shrink-0 fill-amber-500" />
                       )}
                       <h4 className="text-sm font-semibold truncate">{a.title}</h4>
                     </div>

@@ -12,36 +12,51 @@ import {
   SheetTrigger,
   SheetTitle,
 } from "@/components/ui/sheet"
-import { Menu, LayoutDashboard, UserCircle, Users, Clock, CalendarOff, ListTodo, FileText, Target, MessageSquare, Award, CreditCard, Megaphone, Settings } from "lucide-react"
+import {
+  TbMenu2,
+  TbLayoutDashboard,
+  TbUserCircle,
+  TbUsers,
+  TbClock,
+  TbCalendarOff,
+  TbChecklist,
+  TbFileText,
+  TbTarget,
+  TbMessage,
+  TbAward,
+  TbCreditCard,
+  TbSpeakerphone,
+  TbSettings,
+} from "react-icons/tb"
 import { OrgSwitcher } from "./org-switcher"
 
 const adminNav = [
-  { label: "Overview", href: "/overview", icon: LayoutDashboard },
-  { label: "My Dashboard", href: "/my-dashboard", icon: UserCircle },
-  { label: "Team", href: "/team", icon: Users },
-  { label: "Attendance", href: "/attendance", icon: Clock },
-  { label: "Leave", href: "/leave", icon: CalendarOff },
-  { label: "Tasks", href: "/tasks", icon: ListTodo },
-  { label: "EOD Reports", href: "/eod-reports", icon: FileText },
-  { label: "Payroll", href: "/payroll", icon: CreditCard },
-  { label: "OKRs", href: "/okrs", icon: Target },
-  { label: "Feedback", href: "/feedback", icon: MessageSquare },
-  { label: "Appraisals", href: "/appraisals", icon: Award },
-  { label: "Announcements", href: "/announcements", icon: Megaphone },
-  { label: "Settings", href: "/settings", icon: Settings },
+  { label: "Overview", href: "/overview", icon: TbLayoutDashboard },
+  { label: "My Dashboard", href: "/my-dashboard", icon: TbUserCircle },
+  { label: "Team", href: "/team", icon: TbUsers },
+  { label: "Attendance", href: "/attendance", icon: TbClock },
+  { label: "Leave", href: "/leave", icon: TbCalendarOff },
+  { label: "Tasks", href: "/tasks", icon: TbChecklist },
+  { label: "EOD Reports", href: "/eod-reports", icon: TbFileText },
+  { label: "Payroll", href: "/payroll", icon: TbCreditCard },
+  { label: "OKRs", href: "/okrs", icon: TbTarget },
+  { label: "Feedback", href: "/feedback", icon: TbMessage },
+  { label: "Appraisals", href: "/appraisals", icon: TbAward },
+  { label: "Announcements", href: "/announcements", icon: TbSpeakerphone },
+  { label: "Settings", href: "/settings", icon: TbSettings },
 ]
 
 const employeeNav = [
-  { label: "My Dashboard", href: "/my-dashboard", icon: LayoutDashboard },
-  { label: "Attendance", href: "/attendance", icon: Clock },
-  { label: "Leave", href: "/leave", icon: CalendarOff },
-  { label: "Tasks", href: "/tasks", icon: ListTodo },
-  { label: "EOD Reports", href: "/eod-reports", icon: FileText },
-  { label: "Payroll", href: "/payroll", icon: CreditCard },
-  { label: "OKRs", href: "/okrs", icon: Target },
-  { label: "Feedback", href: "/feedback", icon: MessageSquare },
-  { label: "Appraisals", href: "/appraisals", icon: Award },
-  { label: "Announcements", href: "/announcements", icon: Megaphone },
+  { label: "My Dashboard", href: "/my-dashboard", icon: TbLayoutDashboard },
+  { label: "Attendance", href: "/attendance", icon: TbClock },
+  { label: "Leave", href: "/leave", icon: TbCalendarOff },
+  { label: "Tasks", href: "/tasks", icon: TbChecklist },
+  { label: "EOD Reports", href: "/eod-reports", icon: TbFileText },
+  { label: "Payroll", href: "/payroll", icon: TbCreditCard },
+  { label: "OKRs", href: "/okrs", icon: TbTarget },
+  { label: "Feedback", href: "/feedback", icon: TbMessage },
+  { label: "Appraisals", href: "/appraisals", icon: TbAward },
+  { label: "Announcements", href: "/announcements", icon: TbSpeakerphone },
 ]
 
 export function MobileSidebar() {
@@ -53,7 +68,7 @@ export function MobileSidebar() {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger render={<Button variant="ghost" size="icon" className="lg:hidden h-9 w-9" />}>
-        <Menu className="h-5 w-5" />
+        <TbMenu2 className="h-5 w-5" />
       </SheetTrigger>
       <SheetContent side="left" className="w-[280px] p-0 glass-strong">
         <SheetTitle className="sr-only">Navigation</SheetTitle>

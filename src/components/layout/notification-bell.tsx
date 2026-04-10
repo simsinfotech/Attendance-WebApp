@@ -10,7 +10,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Bell } from "lucide-react"
+import { TbBell } from "react-icons/tb"
 import type { Notification } from "@/types"
 import { formatDistanceToNow } from "date-fns"
 
@@ -75,7 +75,7 @@ export function NotificationBell() {
   return (
     <Popover>
       <PopoverTrigger render={<Button variant="ghost" size="icon" className="relative h-9 w-9" />}>
-        <Bell className="h-4 w-4" />
+        <TbBell className="h-4 w-4" />
         {unreadCount > 0 && (
           <span className="absolute -top-0.5 -right-0.5 h-4 w-4 rounded-full bg-primary text-[10px] font-medium flex items-center justify-center text-primary-foreground">
             {unreadCount > 9 ? "9+" : unreadCount}
