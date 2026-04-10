@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@/lib/supabase/server"
 import { getSupabaseAdmin } from "@/lib/supabase/admin"
+import { resolveAuthId } from "@/lib/supabase/resolve-auth-id"
 
 export async function POST(request: NextRequest) {
   try {
@@ -68,9 +69,32 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ success: true, unchanged: true })
     }
 
+    // Resolve a valid auth_id (stored one may be missing or invalid).
+    // Pass the current DB email as the hint so we can find the auth user
+    // even when the fs_employees record has a typo.
+    const authId = await resolveAuthId(supabaseAdmin, target, email)
+
+    if (!authId) {
+      return NextResponse.json(
+        {
+          error:
+            "Could not find a matching auth user for this employee. Check the email in Supabase Authentication.",
+        },
+        { status: 404 }
+      )
+    }
+
+    // Backfill the auth_id if it was missing/invalid
+    if (target.auth_id !== authId) {
+      await supabaseAdmin
+        .from("fs_employees")
+        .update({ auth_id: authId })
+        .eq("id", employee_id)
+    }
+
     // Update the auth user's email (auto-confirm to skip email verification step)
     const { error: authError } = await supabaseAdmin.auth.admin.updateUserById(
-      target.auth_id,
+      authId,
       {
         email,
         email_confirm: true,

@@ -612,7 +612,14 @@ function EditEmployeeDialog({
       const res = await fetch("/api/employees/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ employee_id: emp.id, password: newPassword }),
+        body: JSON.stringify({
+          employee_id: emp.id,
+          password: newPassword,
+          // Pass the current email from the form as a hint in case the
+          // stored auth_id is missing/invalid (lets the server locate the
+          // correct auth user by email).
+          email_hint: email,
+        }),
       })
       const data = await res.json()
       if (!res.ok) {
