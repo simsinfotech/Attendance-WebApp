@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { createClient } from "@/lib/supabase/client"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -19,14 +19,31 @@ export default function LoginPage() {
   const [resetLoading, setResetLoading] = useState(false)
   const supabase = createClient()
 
+  // If the URL contains a Supabase password-recovery token in the hash
+  // (legacy implicit flow from the reset email), forward it to the
+  // dedicated reset-password page so the user can set a new password.
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const hash = window.location.hash
+    if (hash && hash.includes("type=recovery")) {
+      window.location.replace(`/reset-password${hash}`)
+    }
+  }, [])
+
   async function handleResetPassword(e: React.FormEvent) {
     e.preventDefault()
     if (!resetEmail) return
     setResetLoading(true)
     setError("")
 
+    // Always send reset emails pointing to the production web app so users
+    // never land on localhost when clicking the link from their inbox.
+    const siteUrl =
+      process.env.NEXT_PUBLIC_SITE_URL ||
+      "https://attendance-web-app-sable.vercel.app"
+
     const { error: resetError } = await supabase.auth.resetPasswordForEmail(resetEmail, {
-      redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
+      redirectTo: `${siteUrl}/reset-password`,
     })
 
     if (resetError) {

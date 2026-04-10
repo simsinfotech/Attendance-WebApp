@@ -40,6 +40,7 @@ import {
   UserMinus,
   UserCheck,
   ToggleLeft,
+  KeyRound,
 } from "lucide-react"
 import { toast } from "sonner"
 import { format } from "date-fns"
@@ -582,6 +583,10 @@ function EditEmployeeDialog({
   const [department, setDepartment] = useState(emp.department ?? "")
   const [phone, setPhone] = useState(emp.phone ?? "")
   const [isAdminRole, setIsAdminRole] = useState(emp.is_admin)
+  const [showResetPassword, setShowResetPassword] = useState(false)
+  const [newPassword, setNewPassword] = useState("")
+  const [showNewPassword, setShowNewPassword] = useState(false)
+  const [resetting, setResetting] = useState(false)
   const supabase = createClient()
 
   function resetForm() {
@@ -590,6 +595,36 @@ function EditEmployeeDialog({
     setDepartment(emp.department ?? "")
     setPhone(emp.phone ?? "")
     setIsAdminRole(emp.is_admin)
+    setShowResetPassword(false)
+    setNewPassword("")
+    setShowNewPassword(false)
+  }
+
+  async function handleResetPassword() {
+    if (!newPassword || newPassword.length < 6) {
+      toast.error("Password must be at least 6 characters")
+      return
+    }
+    setResetting(true)
+    try {
+      const res = await fetch("/api/employees/reset-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ employee_id: emp.id, password: newPassword }),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        toast.error(data.error || "Failed to reset password")
+      } else {
+        toast.success(`Password reset for ${emp.full_name}`)
+        setNewPassword("")
+        setShowResetPassword(false)
+      }
+    } catch {
+      toast.error("Something went wrong")
+    } finally {
+      setResetting(false)
+    }
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -696,6 +731,68 @@ function EditEmployeeDialog({
               <span className="text-sm">Admin privileges</span>
             </div>
             <Switch checked={isAdminRole} onCheckedChange={setIsAdminRole} />
+          </div>
+
+          {/* Reset Password Section */}
+          <div className="rounded-lg border border-amber-200 bg-amber-50/50 p-3 space-y-3">
+            {!showResetPassword ? (
+              <button
+                type="button"
+                onClick={() => setShowResetPassword(true)}
+                className="flex items-center gap-2 text-sm text-amber-700 hover:text-amber-800 font-medium"
+              >
+                <KeyRound className="h-4 w-4" />
+                Reset Password
+              </button>
+            ) : (
+              <>
+                <div className="flex items-center gap-2">
+                  <KeyRound className="h-4 w-4 text-amber-700" />
+                  <span className="text-sm font-medium text-amber-800">Set New Password</span>
+                </div>
+                <div className="relative">
+                  <Input
+                    type={showNewPassword ? "text" : "password"}
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
+                    placeholder="At least 6 characters"
+                    className="pr-10 bg-white border-amber-200 focus:border-amber-500/50"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    {showNewPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    type="button"
+                    onClick={handleResetPassword}
+                    disabled={resetting}
+                    className="flex-1 bg-amber-600 hover:bg-amber-700 text-white border-0"
+                  >
+                    {resetting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    Update Password
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => {
+                      setShowResetPassword(false)
+                      setNewPassword("")
+                    }}
+                    disabled={resetting}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+                <p className="text-xs text-amber-700/80">
+                  The employee will need to use this new password to log in.
+                </p>
+              </>
+            )}
           </div>
 
           <Button
