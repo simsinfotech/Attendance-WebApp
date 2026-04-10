@@ -78,9 +78,11 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: true, full_name: target.full_name })
-  } catch {
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    console.error("[reset-password] error:", message)
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: `Reset password failed: ${message}` },
       { status: 500 }
     )
   }

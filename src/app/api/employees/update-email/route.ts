@@ -98,9 +98,11 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err)
+    console.error("[update-email] error:", message)
     return NextResponse.json(
-      { error: "Internal server error" },
+      { error: `Update email failed: ${message}` },
       { status: 500 }
     )
   }
